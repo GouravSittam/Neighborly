@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://lovable.dev/projects/b1766688-1f3f-47a1-bbed-40ff891b7b83">
-    <img src="https://img.shields.io/badge/Lovable-Edit%20Online-ffb347?logo=vercel&logoColor=white" alt="Edit on Lovable">
-  </a>
+ 
+
+
   <a href="https://github.com/neighborfit">
     <img src="https://img.shields.io/github/stars/GouravSittam/Neighborly?style=social" alt="GitHub stars">
   </a>
