@@ -1,18 +1,13 @@
 <!-- Banner Image -->
+<p align="center">
+  <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1080&h=360&fit=crop" alt="Neighborly Banner" width="100%" />
+</p>
 
 <h1 align="center">🏡 Neighborly</h1>
 <p align="center">
   <em>Discover your perfect neighborhood match—backed by data, designed for you.</em>
 </p>
 
-<p align="center">
- 
-
-
-  <a href="https://github.com/neighborfit">
-    <img src="https://img.shields.io/github/stars/GouravSittam/Neighborly?style=social" alt="GitHub stars">
-  </a>
-</p>
 
 ---
 
