@@ -2,6 +2,7 @@ import React from "react";
 import { HeroSection } from "@/components/ui/hero-section";
 import { Icons } from "@/components/ui/icons";
 
+
 export const Hero = () => {
   return (
     <HeroSection
