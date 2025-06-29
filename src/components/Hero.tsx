@@ -1,7 +1,6 @@
-
-import React from 'react';
-import { HeroSection } from '@/components/ui/hero-section';
-import { Icons } from '@/components/ui/icons';
+import React from "react";
+import { HeroSection } from "@/components/ui/hero-section";
+import { Icons } from "@/components/ui/icons";
 
 export const Hero = () => {
   return (
@@ -28,8 +27,8 @@ export const Hero = () => {
           variant: "outline",
         },
       ]}
-      image={{
-        src: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=800&fit=crop&crop=faces",
+      video={{
+        src: "https://cdn.dribbble.com/userupload/42670008/file/original-d6c4b23f8f4230fc32fb5b1094fc3086.mp4",
         alt: "Beautiful neighborhood with tree-lined streets and modern homes",
       }}
     />

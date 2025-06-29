@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -12,7 +11,13 @@ interface HeroAction {
   text: string;
   href: string;
   icon?: React.ReactNode;
-  variant?: "default" | "outline" | "ghost" | "link" | "destructive" | "secondary";
+  variant?:
+    | "default"
+    | "outline"
+    | "ghost"
+    | "link"
+    | "destructive"
+    | "secondary";
 }
 
 interface HeroProps {
@@ -26,7 +31,11 @@ interface HeroProps {
   title: string;
   description: string;
   actions: HeroAction[];
-  image: {
+  image?: {
+    src: string;
+    alt: string;
+  };
+  video?: {
     src: string;
     alt: string;
   };
@@ -38,6 +47,7 @@ export function HeroSection({
   description,
   actions,
   image,
+  video,
 }: HeroProps) {
   return (
     <section
@@ -89,11 +99,23 @@ export function HeroSection({
               size="small"
             >
               <Mockup type="responsive">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-auto"
-                />
+                {video ? (
+                  <video
+                    src={video.src}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto"
+                    aria-label={video.alt}
+                  />
+                ) : (
+                  <img
+                    src={image?.src}
+                    alt={image?.alt}
+                    className="w-full h-auto"
+                  />
+                )}
               </Mockup>
             </MockupFrame>
             <Glow
