@@ -1,12 +1,11 @@
-
-import React from 'react';
-import { MapPin, Twitter, Github, Linkedin } from 'lucide-react';
-import { Header } from '../components/Header';
-import { Hero } from '../components/Hero';
-import { PreferencesForm } from '../components/PreferencesForm';
-import { Gallery4 } from '../components/ui/gallery4';
-import { Feature } from '../components/ui/feature-section-with-bento-grid';
-import { Footer } from '../components/ui/footer';
+import React from "react";
+import { Twitter, Github, Linkedin } from "lucide-react";
+import { Header } from "../components/Header";
+import { Hero } from "../components/Hero";
+import { PreferencesForm } from "../components/PreferencesForm";
+import { Gallery4 } from "../components/ui/gallery4";
+import { Feature } from "../components/ui/feature-section-with-bento-grid";
+import { Footer } from "../components/ui/footer";
 
 const Index = () => {
   return (
@@ -21,22 +20,28 @@ const Index = () => {
         </div>
       </main>
       <Footer
-        logo={<MapPin className="h-8 w-8 text-primary" />}
-        brandName="NeighborFit"
+        logo={
+          <img 
+            src="/logo.svg" 
+            alt="Neighborly" 
+            className="h-8 w-8"
+          />
+        }
+        brandName="Neighborly"
         socialLinks={[
           {
             icon: <Twitter className="h-5 w-5" />,
-            href: "https://twitter.com/neighborfit",
+            href: "https://twitter.com/neighborly",
             label: "Twitter",
           },
           {
             icon: <Github className="h-5 w-5" />,
-            href: "https://github.com/neighborfit",
+            href: "https://github.com/neighborly",
             label: "GitHub",
           },
           {
             icon: <Linkedin className="h-5 w-5" />,
-            href: "https://linkedin.com/company/neighborfit",
+            href: "https://linkedin.com/company/neighborly",
             label: "LinkedIn",
           },
         ]}
@@ -53,7 +58,7 @@ const Index = () => {
           { href: "#cookies", label: "Cookie Policy" },
         ]}
         copyright={{
-          text: "© 2024 NeighborFit",
+          text: "© 2024 Neighborly",
           license: "All rights reserved",
         }}
       />

@@ -1,9 +1,8 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom design system for NeighborFit */
+/* Custom design system for Neighborly */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -77,7 +76,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 217.2 91.2% 59.8%;
-    
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -88,7 +87,7 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
 
     --brand: 31 97% 72%;
-    --brand-foreground: 27 96% 61%
+    --brand-foreground: 27 96% 61%;
   }
 }
 
@@ -123,7 +122,7 @@
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
   }
-  
+
   .animate-slide-up {
     animation: slideUp 0.3s ease-out;
   }
