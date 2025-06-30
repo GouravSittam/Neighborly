@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Greenwood",
+    "city": "Springfield",
+    "features": ["parks", "family-friendly", "public transport"],
+    "average_rent": 1200,
+    "walk_score": 85,
+    "safety_rating": 4.5
+  },
+  {
+    "id": 2,
+    "name": "Downtown",
+    "city": "Springfield",
+    "features": ["nightlife", "restaurants", "public transport"],
+    "average_rent": 1800,
+    "walk_score": 95,
+    "safety_rating": 3.8
+  },
+  {
+    "id": 3,
+    "name": "Lakeside",
+    "city": "Springfield",
+    "features": ["waterfront", "quiet", "parks"],
+    "average_rent": 1500,
+    "walk_score": 70,
+    "safety_rating": 4.7
+  }
+]

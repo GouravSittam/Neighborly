@@ -20,13 +20,7 @@ const Index = () => {
         </div>
       </main>
       <Footer
-        logo={
-          <img 
-            src="/logo.svg" 
-            alt="Neighborly" 
-            className="h-8 w-8"
-          />
-        }
+        logo={<img src="/logo.svg" alt="Neighborly" className="h-8 w-8" />}
         brandName="Neighborly"
         socialLinks={[
           {
