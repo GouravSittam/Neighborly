@@ -6,7 +6,10 @@
     "features": ["parks", "family-friendly", "public transport"],
     "average_rent": 1200,
     "walk_score": 85,
-    "safety_rating": 4.5
+    "safety_rating": 4.5,
+    "description": "A peaceful, green neighborhood perfect for families and outdoor lovers.",
+    "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": true
   },
   {
     "id": 2,
@@ -15,7 +18,10 @@
     "features": ["nightlife", "restaurants", "public transport"],
     "average_rent": 1800,
     "walk_score": 95,
-    "safety_rating": 3.8
+    "safety_rating": 3.8,
+    "description": "The vibrant heart of the city, full of entertainment and dining options.",
+    "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": false
   },
   {
     "id": 3,
@@ -24,6 +30,93 @@
     "features": ["waterfront", "quiet", "parks"],
     "average_rent": 1500,
     "walk_score": 70,
-    "safety_rating": 4.7
+    "safety_rating": 4.7,
+    "description": "A serene lakeside community with beautiful views and peaceful surroundings.",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": true
+  },
+  {
+    "id": 4,
+    "name": "Sunnyvale",
+    "city": "Riverton",
+    "features": ["schools", "suburban", "shopping"],
+    "average_rent": 1400,
+    "walk_score": 78,
+    "safety_rating": 4.2,
+    "description": "A family-oriented suburb with excellent schools and shopping centers.",
+    "image": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": true
+  },
+  {
+    "id": 5,
+    "name": "Old Town",
+    "city": "Riverton",
+    "features": ["historic", "cafes", "walkable"],
+    "average_rent": 1300,
+    "walk_score": 88,
+    "safety_rating": 4.0,
+    "description": "Charming historic district with cobblestone streets and cozy cafes.",
+    "image": "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": false
+  },
+  {
+    "id": 6,
+    "name": "Harborview",
+    "city": "Bay City",
+    "features": ["ocean view", "marina", "seafood"],
+    "average_rent": 2000,
+    "walk_score": 92,
+    "safety_rating": 4.3,
+    "description": "A lively coastal neighborhood with stunning ocean views and fresh seafood.",
+    "image": "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": true
+  },
+  {
+    "id": 7,
+    "name": "Maple Heights",
+    "city": "Bay City",
+    "features": ["hiking", "quiet", "views"],
+    "average_rent": 1600,
+    "walk_score": 65,
+    "safety_rating": 4.8,
+    "description": "Nestled in the hills, perfect for nature lovers and hikers.",
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": true
+  },
+  {
+    "id": 8,
+    "name": "Tech Park",
+    "city": "Metroville",
+    "features": ["tech hub", "modern", "coworking"],
+    "average_rent": 2100,
+    "walk_score": 90,
+    "safety_rating": 4.1,
+    "description": "A modern neighborhood popular with young professionals and startups.",
+    "image": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": false
+  },
+  {
+    "id": 9,
+    "name": "Willow Creek",
+    "city": "Metroville",
+    "features": ["creek", "parks", "family-friendly"],
+    "average_rent": 1250,
+    "walk_score": 80,
+    "safety_rating": 4.6,
+    "description": "A tranquil area with lots of green space and a gentle creek running through.",
+    "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": true
+  },
+  {
+    "id": 10,
+    "name": "Artisan Quarter",
+    "city": "Springfield",
+    "features": ["art galleries", "boutiques", "cafes"],
+    "average_rent": 1700,
+    "walk_score": 87,
+    "safety_rating": 4.0,
+    "description": "A creative neighborhood filled with art, culture, and unique shops.",
+    "image": "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80",
+    "pet_friendly": true
   }
 ]
