@@ -37,7 +37,7 @@ const data = [
   },
   {
     id: "suburban-family",
-    title: "Family-Friendly Suburban Haven", 
+    title: "Family-Friendly Suburban Haven",
     description:
       "Discover quiet tree-lined streets with excellent schools, parks, and family amenities. Ideal for growing families seeking safety and community connections.",
     href: "#suburban-family",
@@ -100,14 +100,16 @@ const Gallery4 = ({
   }, [carouselApi]);
 
   return (
-    <section className="py-32">
-      <div className="container mx-auto">
-        <div className="mb-8 flex items-end justify-between md:mb-14 lg:mb-16">
+    <section className="py-16 sm:py-24 md:py-32">
+      <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col md:flex-row items-start md:items-end justify-between md:mb-14 lg:mb-16 gap-4 md:gap-0">
           <div className="flex flex-col gap-4">
             <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl">
               {title}
             </h2>
-            <p className="max-w-lg text-muted-foreground">{description}</p>
+            <p className="max-w-lg text-muted-foreground text-base md:text-lg">
+              {description}
+            </p>
           </div>
           <div className="hidden shrink-0 gap-2 md:flex">
             <Button
@@ -150,21 +152,21 @@ const Gallery4 = ({
             {items.map((item) => (
               <CarouselItem
                 key={item.id}
-                className="max-w-[320px] pl-[20px] lg:max-w-[360px]"
+                className="max-w-full sm:max-w-[320px] pl-[10px] sm:pl-[20px] lg:max-w-[360px]"
               >
-                <a href={item.href} className="group rounded-xl">
-                  <div className="group relative h-full min-h-[27rem] max-w-full overflow-hidden rounded-xl md:aspect-[5/4] lg:aspect-[16/9]">
+                <a href={item.href} className="group rounded-xl block">
+                  <div className="group relative h-full min-h-[22rem] sm:min-h-[27rem] max-w-full overflow-hidden rounded-xl md:aspect-[5/4] lg:aspect-[16/9]">
                     <img
                       src={item.image}
                       alt={item.title}
                       className="absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 h-full bg-[linear-gradient(hsl(var(--primary)/0),hsl(var(--primary)/0.4),hsl(var(--primary)/0.8)_100%)] mix-blend-multiply" />
-                    <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-primary-foreground md:p-8">
-                      <div className="mb-2 pt-4 text-xl font-semibold md:mb-3 md:pt-4 lg:pt-4">
+                    <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-4 sm:p-6 text-primary-foreground md:p-8">
+                      <div className="mb-2 pt-4 text-lg sm:text-xl font-semibold md:mb-3 md:pt-4 lg:pt-4">
                         {item.title}
                       </div>
-                      <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9">
+                      <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9 text-sm md:text-base">
                         {item.description}
                       </div>
                       <div className="flex items-center text-sm">

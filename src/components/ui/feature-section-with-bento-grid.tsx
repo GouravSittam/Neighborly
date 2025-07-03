@@ -65,8 +65,8 @@ function Feature() {
   }, []);
 
   return (
-    <div className="w-full py-20 lg:py-40">
-      <div className="container mx-auto">
+    <div className="w-full py-12 sm:py-20 lg:py-40">
+      <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         <div className="flex flex-col gap-10">
           <div className="flex gap-4 flex-col items-start">
             <div>
@@ -76,50 +76,56 @@ function Feature() {
               <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular text-left">
                 Data-Driven Neighborhood Matching
               </h2>
-              <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground text-left">
+              <p className="text-lg md:text-xl max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground text-left">
                 Our advanced algorithm analyzes over 100 factors to find your
                 perfect neighborhood match.
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
-            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-8">
+            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square min-w-0">
               <Home className="w-8 h-8 stroke-1 mb-2" />
-              <div className="text-2xl font-bold">
+              <div className="text-2xl md:text-3xl font-bold">
                 {loading ? "-" : stats?.total ?? "-"}
               </div>
-              <div className="text-muted-foreground text-sm">Neighborhoods</div>
+              <div className="text-muted-foreground text-sm md:text-base">
+                Neighborhoods
+              </div>
             </div>
-            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square">
+            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square min-w-0">
               <DollarSign className="w-8 h-8 stroke-1 mb-2" />
-              <div className="text-2xl font-bold">
+              <div className="text-2xl md:text-3xl font-bold">
                 {loading ? "-" : `$${stats?.avgRent ?? "-"}`}
               </div>
-              <div className="text-muted-foreground text-sm">Avg. Rent</div>
+              <div className="text-muted-foreground text-sm md:text-base">
+                Avg. Rent
+              </div>
             </div>
-            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square">
+            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square min-w-0">
               <TrendingUp className="w-8 h-8 stroke-1 mb-2" />
-              <div className="text-2xl font-bold">
+              <div className="text-2xl md:text-3xl font-bold">
                 {loading ? "-" : stats?.avgWalk ?? "-"}
               </div>
-              <div className="text-muted-foreground text-sm">
+              <div className="text-muted-foreground text-sm md:text-base">
                 Avg. Walk Score
               </div>
             </div>
-            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square">
+            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square min-w-0">
               <MapPin className="w-8 h-8 stroke-1 mb-2" />
               <div className="flex flex-wrap gap-1 justify-center mb-1">
                 {loading ? (
                   <span>-</span>
                 ) : (
                   stats?.topFeatures.map((f) => (
-                    <Badge key={f} className="text-xs">
+                    <Badge key={f} className="text-xs md:text-sm">
                       {f}
                     </Badge>
                   ))
                 )}
               </div>
-              <div className="text-muted-foreground text-sm">Top Features</div>
+              <div className="text-muted-foreground text-sm md:text-base">
+                Top Features
+              </div>
             </div>
           </div>
           {error && (

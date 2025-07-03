@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 
 interface FooterProps {
@@ -32,9 +31,9 @@ export function Footer({
   copyright,
 }: FooterProps) {
   return (
-    <footer className="pb-6 pt-16 lg:pb-8 lg:pt-24">
-      <div className="px-4 lg:px-8">
-        <div className="md:flex md:items-start md:justify-between">
+    <footer className="pb-6 pt-12 sm:pt-16 lg:pb-8 lg:pt-24">
+      <div className="px-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-0">
           <a
             href="/"
             className="flex items-center gap-x-2"
@@ -60,7 +59,7 @@ export function Footer({
             ))}
           </ul>
         </div>
-        <div className="border-t mt-6 pt-6 md:mt-4 md:pt-8 lg:grid lg:grid-cols-10">
+        <div className="border-t mt-6 pt-6 md:mt-4 md:pt-8 lg:grid lg:grid-cols-10 gap-4">
           <nav className="lg:mt-0 lg:col-[4/11]">
             <ul className="list-none flex flex-wrap -my-1 -mx-2 lg:justify-end">
               {mainLinks.map((link, i) => (
