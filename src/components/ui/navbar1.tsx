@@ -149,12 +149,18 @@ const Navbar1 = ({
 }: Navbar1Props) => {
   return (
     <section className="py-4">
-      <div className="container">
+      <div className="container px-2 sm:px-4 md:px-6 lg:px-8 mx-auto">
         <nav className="hidden justify-between lg:flex">
-          <div className="flex items-center gap-6">
-            <a href={logo.url} className="flex items-center gap-2">
-              <img src={logo.src} className="w-8" alt={logo.alt} />
-              <span className="text-lg font-semibold">{logo.title}</span>
+          <div className="flex items-center gap-4 md:gap-6">
+            <a href={logo.url} className="flex items-center gap-2 min-w-0">
+              <img
+                src={logo.src}
+                className="w-8 h-8 object-contain"
+                alt={logo.alt}
+              />
+              <span className="text-lg font-semibold truncate">
+                {logo.title}
+              </span>
             </a>
             <div className="flex items-center">
               <NavigationMenu>
@@ -166,34 +172,56 @@ const Navbar1 = ({
           </div>
           <div className="flex items-center gap-2">
             {themeToggle}
-            <Button asChild variant="outline" size="sm">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="min-w-[44px] min-h-[44px]"
+            >
               <a href={auth.login.url}>{auth.login.text}</a>
             </Button>
-            <Button asChild size="sm">
+            <Button asChild size="sm" className="min-w-[44px] min-h-[44px]">
               <a href={auth.signup.url}>{auth.signup.text}</a>
             </Button>
           </div>
         </nav>
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
-            <a href={logo.url} className="flex items-center gap-2">
-              <img src={logo.src} className="w-8" alt={logo.alt} />
-              <span className="text-lg font-semibold">{logo.title}</span>
+            <a href={logo.url} className="flex items-center gap-2 min-w-0">
+              <img
+                src={logo.src}
+                className="w-8 h-8 object-contain"
+                alt={logo.alt}
+              />
+              <span className="text-lg font-semibold truncate">
+                {logo.title}
+              </span>
             </a>
             <div className="flex items-center gap-2">
               {themeToggle}
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <Menu className="size-4" />
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="min-w-[44px] min-h-[44px]"
+                  >
+                    <Menu className="size-5" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent className="overflow-y-auto">
+                <SheetContent className="overflow-y-auto px-4 pt-6 pb-8 w-full max-w-xs sm:max-w-sm">
                   <SheetHeader>
                     <SheetTitle>
-                      <a href={logo.url} className="flex items-center gap-2">
-                        <img src={logo.src} className="w-8" alt={logo.alt} />
-                        <span className="text-lg font-semibold">
+                      <a
+                        href={logo.url}
+                        className="flex items-center gap-2 min-w-0"
+                      >
+                        <img
+                          src={logo.src}
+                          className="w-8 h-8 object-contain"
+                          alt={logo.alt}
+                        />
+                        <span className="text-lg font-semibold truncate">
                           {logo.title}
                         </span>
                       </a>
@@ -208,11 +236,11 @@ const Navbar1 = ({
                       {menu.map((item) => renderMobileMenuItem(item))}
                     </Accordion>
                     <div className="border-t py-4">
-                      <div className="grid grid-cols-2 justify-start">
+                      <div className="grid grid-cols-2 justify-start gap-2">
                         {mobileExtraLinks.map((link, idx) => (
                           <a
                             key={idx}
-                            className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-accent-foreground"
+                            className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-accent-foreground w-full"
                             href={link.url}
                           >
                             {link.name}
@@ -221,10 +249,14 @@ const Navbar1 = ({
                       </div>
                     </div>
                     <div className="flex flex-col gap-3">
-                      <Button asChild variant="outline">
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="min-w-[44px] min-h-[44px]"
+                      >
                         <a href={auth.login.url}>{auth.login.text}</a>
                       </Button>
-                      <Button asChild>
+                      <Button asChild className="min-w-[44px] min-h-[44px]">
                         <a href={auth.signup.url}>{auth.signup.text}</a>
                       </Button>
                     </div>

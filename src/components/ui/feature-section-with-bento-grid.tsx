@@ -1,8 +1,69 @@
-
-import { MapPin, BarChart3, Users, Brain } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  MapPin,
+  BarChart3,
+  Users,
+  Brain,
+  Home,
+  DollarSign,
+  TrendingUp,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 function Feature() {
+  const [stats, setStats] = useState<null | {
+    total: number;
+    avgRent: number;
+    avgWalk: number;
+    topFeatures: string[];
+    topCity: string;
+  }>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch("/api/neighborhoods");
+        if (!res.ok) throw new Error("Failed to fetch data");
+        const data = await res.json();
+        const total = data.length;
+        const avgRent = Math.round(
+          data.reduce((sum: number, n: any) => sum + n.average_rent, 0) / total
+        );
+        const avgWalk = Math.round(
+          data.reduce((sum: number, n: any) => sum + n.walk_score, 0) / total
+        );
+        // Count features
+        const featureCounts: Record<string, number> = {};
+        data.forEach((n: any) =>
+          n.features.forEach((f: string) => {
+            featureCounts[f] = (featureCounts[f] || 0) + 1;
+          })
+        );
+        const topFeatures = Object.entries(featureCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3)
+          .map(([f]) => f);
+        // Most common city
+        const cityCounts: Record<string, number> = {};
+        data.forEach((n: any) => {
+          cityCounts[n.city] = (cityCounts[n.city] || 0) + 1;
+        });
+        const topCity =
+          Object.entries(cityCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || "-";
+        setStats({ total, avgRent, avgWalk, topFeatures, topCity });
+      } catch (err: any) {
+        setError(err.message || "Unknown error");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+
   return (
     <div className="w-full py-20 lg:py-40">
       <div className="container mx-auto">
@@ -16,49 +77,54 @@ function Feature() {
                 Data-Driven Neighborhood Matching
               </h2>
               <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground text-left">
-                Our advanced algorithm analyzes over 100 factors to find your perfect neighborhood match.
+                Our advanced algorithm analyzes over 100 factors to find your
+                perfect neighborhood match.
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-muted rounded-md h-full lg:col-span-2 p-6 aspect-square lg:aspect-auto flex justify-between flex-col">
-              <MapPin className="w-8 h-8 stroke-1" />
-              <div className="flex flex-col">
-                <h3 className="text-xl tracking-tight">Location Intelligence</h3>
-                <p className="text-muted-foreground max-w-xs text-base">
-                  We analyze commute times, proximity to amenities, and transportation accessibility to match your lifestyle needs.
-                </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square">
+              <Home className="w-8 h-8 stroke-1 mb-2" />
+              <div className="text-2xl font-bold">
+                {loading ? "-" : stats?.total ?? "-"}
+              </div>
+              <div className="text-muted-foreground text-sm">Neighborhoods</div>
+            </div>
+            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square">
+              <DollarSign className="w-8 h-8 stroke-1 mb-2" />
+              <div className="text-2xl font-bold">
+                {loading ? "-" : `$${stats?.avgRent ?? "-"}`}
+              </div>
+              <div className="text-muted-foreground text-sm">Avg. Rent</div>
+            </div>
+            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square">
+              <TrendingUp className="w-8 h-8 stroke-1 mb-2" />
+              <div className="text-2xl font-bold">
+                {loading ? "-" : stats?.avgWalk ?? "-"}
+              </div>
+              <div className="text-muted-foreground text-sm">
+                Avg. Walk Score
               </div>
             </div>
-            <div className="bg-muted rounded-md aspect-square p-6 flex justify-between flex-col">
-              <BarChart3 className="w-8 h-8 stroke-1" />
-              <div className="flex flex-col">
-                <h3 className="text-xl tracking-tight">Market Analytics</h3>
-                <p className="text-muted-foreground max-w-xs text-base">
-                  Real-time market data and trends help identify neighborhoods with the best value and growth potential.
-                </p>
+            <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square">
+              <MapPin className="w-8 h-8 stroke-1 mb-2" />
+              <div className="flex flex-wrap gap-1 justify-center mb-1">
+                {loading ? (
+                  <span>-</span>
+                ) : (
+                  stats?.topFeatures.map((f) => (
+                    <Badge key={f} className="text-xs">
+                      {f}
+                    </Badge>
+                  ))
+                )}
               </div>
-            </div>
-
-            <div className="bg-muted rounded-md aspect-square p-6 flex justify-between flex-col">
-              <Users className="w-8 h-8 stroke-1" />
-              <div className="flex flex-col">
-                <h3 className="text-xl tracking-tight">Community Insights</h3>
-                <p className="text-muted-foreground max-w-xs text-base">
-                  Demographics, social dynamics, and community characteristics are analyzed to find your ideal neighbors.
-                </p>
-              </div>
-            </div>
-            <div className="bg-muted rounded-md h-full lg:col-span-2 p-6 aspect-square lg:aspect-auto flex justify-between flex-col">
-              <Brain className="w-8 h-8 stroke-1" />
-              <div className="flex flex-col">
-                <h3 className="text-xl tracking-tight">AI-Powered Matching</h3>
-                <p className="text-muted-foreground max-w-xs text-base">
-                  Machine learning algorithms continuously improve recommendations based on user feedback and success stories.
-                </p>
-              </div>
+              <div className="text-muted-foreground text-sm">Top Features</div>
             </div>
           </div>
+          {error && (
+            <div className="text-red-600 text-center mt-4">{error}</div>
+          )}
         </div>
       </div>
     </div>
