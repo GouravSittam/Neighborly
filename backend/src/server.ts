@@ -31,6 +31,7 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", message: "NeighborFit backend is running." });
 });
 
+
 // Placeholder: Neighborhood data endpoint
 app.get("/api/neighborhoods", (_req, res) => {
   const dataPath = path.join(__dirname, "../data/neighborhoods.json");
