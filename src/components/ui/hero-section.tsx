@@ -80,6 +80,7 @@ export function HeroSection({
             {description}
           </p>
 
+
           {/* Actions */}
           <div className="relative z-10 flex animate-appear justify-center gap-4 opacity-0 delay-300">
             {actions.map((action, index) => (
