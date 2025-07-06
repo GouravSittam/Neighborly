@@ -1,330 +1,607 @@
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  AreaChart,
+  Area,
+} from "recharts";
+import {
+  TrendingUp,
+  Users,
+  Zap,
+  Database,
+  BarChart3,
+  Activity,
+  Target,
+  Clock,
+  CheckCircle,
+  AlertTriangle,
+  Info,
+} from "lucide-react";
 
-import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BarChart3, Users, MapPin, TrendingUp, FileText, Database, Brain, Target } from 'lucide-react';
+interface ResearchData {
+  userBehavior: {
+    totalSearches: number;
+    averagePreferences: any;
+    mostPopularFeatures: string[];
+    searchPatterns: any[];
+    conversionRate: number;
+  };
+  algorithmPerformance: {
+    averageResponseTime: number;
+    accuracyScore: number;
+    userSatisfaction: number;
+    matchDistribution: Record<string, number>;
+    algorithmVersion: string;
+  };
+  dataQuality: {
+    dataCompleteness: number;
+    dataAccuracy: number;
+    lastUpdated: Date;
+    sourceReliability: number;
+    missingFields: string[];
+  };
+  marketTrends: {
+    rentTrends: any[];
+    neighborhoodPopularity: any[];
+    featureDemand: any[];
+    seasonalPatterns: any[];
+  };
+}
 
 export const ResearchSection = () => {
+  const [researchData, setResearchData] = useState<ResearchData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState("overview");
+
+  useEffect(() => {
+    fetchResearchData();
+  }, []);
+
+  const fetchResearchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "http://localhost:4000/api/research/overview"
+      );
+      if (!response.ok) throw new Error("Failed to fetch research data");
+      const data = await response.json();
+      setResearchData(data.data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <section id="research" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading research insights...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !researchData) {
+    return (
+      <section id="research" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Research Data Unavailable
+            </h2>
+            <p className="text-gray-600 mb-4">
+              {error || "Unable to load research insights"}
+            </p>
+            <Button onClick={fetchResearchData} variant="outline">
+              Retry
+            </Button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
+
   return (
-    <section id="insights" className="py-16">
+    <section id="research" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Research & Methodology</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Research & Analytics Insights
+          </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Our approach combines systematic research, data analysis, and algorithmic thinking to solve the neighborhood-lifestyle matching problem.
+            Comprehensive analysis of user behavior, algorithm performance, and
+            market trends to drive data-informed decisions.
           </p>
         </div>
 
-        <Tabs defaultValue="problem" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="problem">Problem Analysis</TabsTrigger>
-            <TabsTrigger value="algorithm">Algorithm Design</TabsTrigger>
-            <TabsTrigger value="data">Data Strategy</TabsTrigger>
-            <TabsTrigger value="validation">Validation</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
+            <TabsTrigger value="overview" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Overview
+            </TabsTrigger>
+            <TabsTrigger
+              value="user-behavior"
+              className="flex items-center gap-2"
+            >
+              <Users className="h-4 w-4" />
+              User Behavior
+            </TabsTrigger>
+            <TabsTrigger value="algorithm" className="flex items-center gap-2">
+              <Zap className="h-4 w-4" />
+              Algorithm
+            </TabsTrigger>
+            <TabsTrigger
+              value="market-trends"
+              className="flex items-center gap-2"
+            >
+              <TrendingUp className="h-4 w-4" />
+              Market Trends
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="problem" className="mt-8">
-            <div className="grid md:grid-cols-2 gap-8">
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Target className="h-6 w-6 text-blue-600" />
-                    <span>Problem Definition</span>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Total Searches
                   </CardTitle>
+                  <Users className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold mb-2">Core Problem</h4>
-                    <p className="text-sm text-gray-700">
-                      People struggle to find neighborhoods that align with their lifestyle preferences, 
-                      leading to poor housing decisions and reduced quality of life.
-                    </p>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {researchData.userBehavior.totalSearches || 0}
                   </div>
-                  
-                  <div className="space-y-3">
-                    <h4 className="font-semibold">Key Hypotheses</h4>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-start space-x-2">
-                        <Badge variant="outline" className="mt-0.5">H1</Badge>
-                        <span>Commute time is the primary decision factor for 60%+ of users</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <Badge variant="outline" className="mt-0.5">H2</Badge>
-                        <span>Lifestyle compatibility scores correlate with long-term satisfaction</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <Badge variant="outline" className="mt-0.5">H3</Badge>
-                        <span>Users undervalue walkability until experiencing it</span>
-                      </li>
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Users className="h-6 w-6 text-green-600" />
-                    <span>User Research Findings</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center p-3 bg-green-50 rounded-lg">
-                      <div className="text-2xl font-bold text-green-600">73%</div>
-                      <div className="text-xs text-gray-600">Regret housing decisions</div>
-                    </div>
-                    <div className="text-center p-3 bg-blue-50 rounded-lg">
-                      <div className="text-2xl font-bold text-blue-600">45min</div>
-                      <div className="text-xs text-gray-600">Avg research time</div>
-                    </div>
-                    <div className="text-center p-3 bg-purple-50 rounded-lg">
-                      <div className="text-2xl font-bold text-purple-600">8</div>
-                      <div className="text-xs text-gray-600">Key decision factors</div>
-                    </div>
-                    <div className="text-center p-3 bg-orange-50 rounded-lg">
-                      <div className="text-2xl font-bold text-orange-600">$3.2K</div>
-                      <div className="text-xs text-gray-600">Avg moving cost</div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm">Pain Points Identified</h4>
-                    <ul className="text-xs text-gray-600 space-y-1">
-                      <li>• Information scattered across multiple platforms</li>
-                      <li>• No objective way to compare lifestyle fit</li>
-                      <li>• Hidden costs and factors discovered too late</li>
-                      <li>• Difficulty predicting long-term satisfaction</li>
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="algorithm" className="mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Brain className="h-6 w-6 text-purple-600" />
-                  <span>Matching Algorithm Design</span>
-                </CardTitle>
-                <CardDescription>
-                  Multi-factor scoring system with weighted preferences and machine learning optimization
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h4 className="font-semibold">Scoring Components</h4>
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                        <span className="text-sm">Commute Compatibility</span>
-                        <Badge variant="secondary">25%</Badge>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                        <span className="text-sm">Budget Alignment</span>
-                        <Badge variant="secondary">20%</Badge>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                        <span className="text-sm">Lifestyle Match</span>
-                        <Badge variant="secondary">20%</Badge>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                        <span className="text-sm">Amenity Access</span>
-                        <Badge variant="secondary">15%</Badge>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                        <span className="text-sm">Demographics Fit</span>
-                        <Badge variant="secondary">10%</Badge>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                        <span className="text-sm">Future Growth</span>
-                        <Badge variant="secondary">10%</Badge>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <h4 className="font-semibold">Algorithm Trade-offs</h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="border-l-4 border-green-500 pl-3">
-                        <strong>Personalization vs Speed:</strong> Using cached scoring for common preferences while maintaining real-time customization
-                      </div>
-                      <div className="border-l-4 border-blue-500 pl-3">
-                        <strong>Accuracy vs Data Availability:</strong> Graceful degradation when neighborhood data is incomplete
-                      </div>
-                      <div className="border-l-4 border-orange-500 pl-3">
-                        <strong>Complexity vs Explainability:</strong> Transparent scoring that users can understand and adjust
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">Future Enhancements</h4>
-                  <div className="grid md:grid-cols-3 gap-4 text-sm">
-                    <div>• Machine learning from user feedback</div>
-                    <div>• Seasonal preference adjustments</div>
-                    <div>• Social network influence modeling</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="data" className="mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Database className="h-6 w-6 text-blue-600" />
-                  <span>Data Collection & Processing</span>
-                </CardTitle>
-                <CardDescription>
-                  Creative solutions for gathering and processing neighborhood data within budget constraints
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-green-600">Free Data Sources</h4>
-                    <ul className="text-sm space-y-2">
-                      <li>• US Census API</li>
-                      <li>• OpenStreetMap data</li>
-                      <li>• Walk Score API (limited)</li>
-                      <li>• Crime.gov statistics</li>
-                      <li>• Transit agency APIs</li>
-                      <li>• Weather.gov data</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-orange-600">Data Challenges</h4>
-                    <ul className="text-sm space-y-2">
-                      <li>• Inconsistent geographic boundaries</li>
-                      <li>• Missing recent data for some areas</li>
-                      <li>• Rate limiting on free APIs</li>
-                      <li>• Data quality varies by region</li>
-                      <li>• Real estate prices update frequency</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-blue-600">Creative Solutions</h4>
-                    <ul className="text-sm space-y-2">
-                      <li>• Web scraping with respect for robots.txt</li>
-                      <li>• Data interpolation for missing values</li>
-                      <li>• Crowdsourced validation system</li>
-                      <li>• Cached results to minimize API calls</li>
-                      <li>• Proxy metrics when direct data unavailable</li>
-                    </ul>
-                  </div>
-                </div>
-                
-                <div className="bg-yellow-50 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">Data Pipeline Architecture</h4>
-                  <p className="text-sm text-gray-700 mb-3">
-                    ETL process running daily to update neighborhood scores, with real-time preference matching
+                  <p className="text-xs text-muted-foreground">
+                    +12% from last month
                   </p>
-                  <div className="flex items-center space-x-2 text-xs">
-                    <Badge>Extract</Badge>
-                    <span>→</span>
-                    <Badge>Transform</Badge>
-                    <span>→</span>
-                    <Badge>Load</Badge>
-                    <span>→</span>
-                    <Badge>Score</Badge>
-                    <span>→</span>
-                    <Badge>Match</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                </CardContent>
+              </Card>
 
-          <TabsContent value="validation" className="mt-8">
-            <div className="grid md:grid-cols-2 gap-8">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Avg Response Time
+                  </CardTitle>
+                  <Clock className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {researchData.algorithmPerformance.averageResponseTime || 0}
+                    ms
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Algorithm v
+                    {researchData.algorithmPerformance.algorithmVersion}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Data Quality
+                  </CardTitle>
+                  <Database className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {researchData.dataQuality.dataCompleteness || 0}%
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {researchData.dataQuality.dataAccuracy || 0}% accuracy
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    User Satisfaction
+                  </CardTitle>
+                  <Target className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {researchData.algorithmPerformance.userSatisfaction || 0}%
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Based on session duration
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <TrendingUp className="h-6 w-6 text-green-600" />
-                    <span>Testing & Validation</span>
-                  </CardTitle>
+                  <CardTitle>Most Popular Features</CardTitle>
+                  <CardDescription>
+                    Features most frequently selected by users
+                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-3">
-                    <h4 className="font-semibold">Validation Methods</h4>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="p-3 bg-green-50 rounded text-center">
-                        <div className="text-lg font-bold text-green-600">A/B Tests</div>
-                        <div className="text-xs text-gray-600">Algorithm variants</div>
-                      </div>
-                      <div className="p-3 bg-blue-50 rounded text-center">
-                        <div className="text-lg font-bold text-blue-600">User Studies</div>
-                        <div className="text-xs text-gray-600">Preference accuracy</div>
-                      </div>
-                      <div className="p-3 bg-purple-50 rounded text-center">
-                        <div className="text-lg font-bold text-purple-600">Edge Cases</div>
-                        <div className="text-xs text-gray-600">Corner scenarios</div>
-                      </div>
-                      <div className="p-3 bg-orange-50 rounded text-center">
-                        <div className="text-lg font-bold text-orange-600">Feedback</div>
-                        <div className="text-xs text-gray-600">Loop integration</div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm">Key Metrics</h4>
-                    <ul className="text-xs text-gray-600 space-y-1">
-                      <li>• Match accuracy: 78% users satisfied with top 3 results</li>
-                      <li>• Algorithm speed: &lt;200ms average response time</li>
-                      <li>• Edge case handling: 94% graceful error recovery</li>
-                      <li>• User engagement: 65% complete full preference survey</li>
-                    </ul>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {(researchData.userBehavior.mostPopularFeatures || []).map(
+                      (feature, index) => (
+                        <Badge
+                          key={feature}
+                          variant={index < 3 ? "default" : "secondary"}
+                        >
+                          {feature}
+                        </Badge>
+                      )
+                    )}
                   </div>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <FileText className="h-6 w-6 text-blue-600" />
-                    <span>Limitations & Future Work</span>
-                  </CardTitle>
+                  <CardTitle>Data Quality Metrics</CardTitle>
+                  <CardDescription>
+                    Current data completeness and reliability
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-red-600">Current Limitations</h4>
-                    <ul className="text-sm space-y-2">
-                      <li>• Limited to publicly available data sources</li>
-                      <li>• Seasonal variations not fully captured</li>
-                      <li>• Individual property-level accuracy varies</li>
-                      <li>• Cultural/social factors underrepresented</li>
-                    </ul>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Completeness</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-blue-600 h-2 rounded-full"
+                          style={{
+                            width: `${
+                              researchData.dataQuality.dataCompleteness || 0
+                            }%`,
+                          }}
+                        ></div>
+                      </div>
+                      <span className="text-sm font-medium">
+                        {researchData.dataQuality.dataCompleteness || 0}%
+                      </span>
+                    </div>
                   </div>
-                  
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-green-600">Planned Improvements</h4>
-                    <ul className="text-sm space-y-2">
-                      <li>• Integration with real estate APIs</li>
-                      <li>• Machine learning from user feedback</li>
-                      <li>• Mobile app for location-based insights</li>
-                      <li>• Community-driven data contributions</li>
-                    </ul>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Accuracy</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-green-600 h-2 rounded-full"
+                          style={{
+                            width: `${
+                              researchData.dataQuality.dataAccuracy || 0
+                            }%`,
+                          }}
+                        ></div>
+                      </div>
+                      <span className="text-sm font-medium">
+                        {researchData.dataQuality.dataAccuracy || 0}%
+                      </span>
+                    </div>
                   </div>
-                  
-                  <div className="bg-blue-50 p-3 rounded">
-                    <h4 className="font-semibold text-sm mb-1">Scalability Considerations</h4>
-                    <p className="text-xs text-gray-700">
-                      Current architecture supports ~10K users. Database optimization and caching 
-                      strategies planned for 100K+ user scale.
-                    </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Source Reliability</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-purple-600 h-2 rounded-full"
+                          style={{
+                            width: `${
+                              researchData.dataQuality.sourceReliability || 0
+                            }%`,
+                          }}
+                        ></div>
+                      </div>
+                      <span className="text-sm font-medium">
+                        {researchData.dataQuality.sourceReliability || 0}%
+                      </span>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="user-behavior" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Search Volume Over Time</CardTitle>
+                  <CardDescription>
+                    Daily search patterns and trends
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <AreaChart
+                      data={(
+                        researchData.userBehavior.searchPatterns || []
+                      ).slice(-7)}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="timestamp" />
+                      <YAxis />
+                      <Tooltip />
+                      <Area
+                        type="monotone"
+                        dataKey="resultCount"
+                        stroke="#8884d8"
+                        fill="#8884d8"
+                        fillOpacity={0.3}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Average User Preferences</CardTitle>
+                  <CardDescription>
+                    Most common preference selections
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {researchData.userBehavior.averagePreferences
+                      ?.budgetRange && (
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">Average Budget</span>
+                        <span className="font-medium">
+                          $
+                          {
+                            researchData.userBehavior.averagePreferences
+                              .budgetRange[0]
+                          }
+                        </span>
+                      </div>
+                    )}
+                    {researchData.userBehavior.averagePreferences
+                      ?.maxCommute && (
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">Average Commute Time</span>
+                        <span className="font-medium">
+                          {
+                            researchData.userBehavior.averagePreferences
+                              .maxCommute[0]
+                          }{" "}
+                          min
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Conversion Rate</span>
+                      <span className="font-medium">
+                        {(
+                          researchData.userBehavior.conversionRate || 0
+                        ).toFixed(1)}
+                        %
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="algorithm" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Algorithm Performance Metrics</CardTitle>
+                  <CardDescription>
+                    Key performance indicators for the matching algorithm
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart
+                      data={[
+                        {
+                          metric: "Accuracy",
+                          value:
+                            researchData.algorithmPerformance.accuracyScore,
+                          color: "#0088FE",
+                        },
+                        {
+                          metric: "Satisfaction",
+                          value:
+                            researchData.algorithmPerformance.userSatisfaction,
+                          color: "#00C49F",
+                        },
+                        {
+                          metric: "Response Time",
+                          value: Math.max(
+                            0,
+                            100 -
+                              researchData.algorithmPerformance
+                                .averageResponseTime /
+                                10
+                          ),
+                          color: "#FFBB28",
+                        },
+                      ]}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="metric" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="value" fill="#8884d8" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Match Distribution</CardTitle>
+                  <CardDescription>
+                    Distribution of results returned by the algorithm
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={Object.entries(
+                          researchData.algorithmPerformance.matchDistribution ||
+                            {}
+                        ).map(([key, value], index) => ({
+                          name: `${key} results`,
+                          value,
+                          color: COLORS[index % COLORS.length],
+                        }))}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) =>
+                          `${name} ${(percent * 100).toFixed(0)}%`
+                        }
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {Object.entries(
+                          researchData.algorithmPerformance.matchDistribution ||
+                            {}
+                        ).map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="market-trends" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Rent Trends</CardTitle>
+                  <CardDescription>
+                    Monthly rent changes across neighborhoods
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart
+                      data={researchData.marketTrends.rentTrends || []}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis />
+                      <Tooltip />
+                      <Line
+                        type="monotone"
+                        dataKey="averageRent"
+                        stroke="#8884d8"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Feature Demand Trends</CardTitle>
+                  <CardDescription>
+                    Changing demand for neighborhood features
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {(researchData.marketTrends.featureDemand || []).map(
+                      (feature, index) => (
+                        <div
+                          key={feature.feature}
+                          className="flex items-center justify-between"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium">
+                              {feature.feature}
+                            </span>
+                            <Badge
+                              variant={
+                                feature.trend === "increasing"
+                                  ? "default"
+                                  : feature.trend === "decreasing"
+                                  ? "destructive"
+                                  : "secondary"
+                              }
+                            >
+                              {feature.trend}
+                            </Badge>
+                          </div>
+                          <span className="text-sm font-medium">
+                            {feature.demandScore}
+                          </span>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Seasonal Patterns</CardTitle>
+                <CardDescription>
+                  Search volume and feature preferences by month
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart
+                    data={researchData.marketTrends.seasonalPatterns || []}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="searchVolume" fill="#8884d8" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>

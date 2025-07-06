@@ -25,6 +25,39 @@ import {
   Car,
   Coffee,
 } from "lucide-react";
+import { NeighborhoodGrid } from "./NeighborhoodGrid";
+
+interface MatchResult {
+  neighborhood: {
+    id: number;
+    name: string;
+    city: string;
+    state: string;
+    features: string[];
+    average_rent: number;
+    walk_score: number;
+    safety_rating: number;
+    description: string;
+    image: string;
+    pet_friendly: boolean;
+    transit_score?: number;
+    bike_score?: number;
+    coordinates?: { lat: number; lng: number };
+  };
+  score: number;
+  scoreBreakdown: {
+    budget: number;
+    lifestyle: number;
+    priorities: number;
+    commute: number;
+    safety: number;
+    walkability: number;
+    amenities: number;
+    total: number;
+  };
+  matchReasons: string[];
+  compatibilityPercentage: number;
+}
 
 type Match = {
   id: number;
@@ -44,9 +77,10 @@ export const PreferencesForm = () => {
     lifestyle: [] as string[],
     priorities: [] as string[],
   });
-  const [matches, setMatches] = useState<Match[]>([]);
+  const [matches, setMatches] = useState<MatchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sessionStartTime] = useState(Date.now());
 
   const lifestyleOptions = [
     { id: "nightlife", label: "Nightlife & Entertainment", icon: "🌃" },
@@ -87,6 +121,9 @@ export const PreferencesForm = () => {
     setLoading(true);
     setError(null);
     setMatches([]);
+
+    const sessionDuration = Date.now() - sessionStartTime;
+
     try {
       const res = await fetch("http://localhost:4000/api/match", {
         method: "POST",
@@ -95,7 +132,24 @@ export const PreferencesForm = () => {
       });
       if (!res.ok) throw new Error("Failed to fetch matches");
       const data = await res.json();
-      setMatches(data.matches || []);
+      setMatches(data.data?.matches || []);
+
+      // Track analytics
+      if (data.data?.matches) {
+        try {
+          await fetch("http://localhost:4000/api/research/track", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              preferences,
+              resultCount: data.data.matches.length,
+              sessionDuration,
+            }),
+          });
+        } catch (analyticsError) {
+          console.warn("Failed to track analytics:", analyticsError);
+        }
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -256,38 +310,8 @@ export const PreferencesForm = () => {
         </form>
         {/* Display matches */}
         {matches.length > 0 && (
-          <div className="max-w-4xl mx-auto mt-12">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-              Top Neighborhood Matches
-            </h3>
-            <div className="grid gap-6 md:grid-cols-3">
-              {matches.map((n) => (
-                <div
-                  key={n.id}
-                  className="border rounded-lg p-6 bg-white shadow"
-                >
-                  <h4 className="text-xl font-semibold mb-2">{n.name}</h4>
-                  <div className="text-gray-600 mb-1">City: {n.city}</div>
-                  <div className="text-gray-600 mb-1">
-                    Avg. Rent: ${n.average_rent}
-                  </div>
-                  <div className="text-gray-600 mb-1">
-                    Walk Score: {n.walk_score}
-                  </div>
-                  <div className="text-gray-600 mb-1">
-                    Safety: {n.safety_rating}
-                  </div>
-                  <div className="flex flex-wrap gap-1 mt-2">
-                    {n.features.map((f: string) => (
-                      <Badge key={f}>{f}</Badge>
-                    ))}
-                  </div>
-                  <div className="mt-2 text-blue-700 font-bold">
-                    Match Score: {n.score}
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="max-w-6xl mx-auto mt-12">
+            <NeighborhoodGrid matches={matches} />
           </div>
         )}
       </div>

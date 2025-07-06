@@ -3,6 +3,7 @@ import { Twitter, Github, Linkedin } from "lucide-react";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import { PreferencesForm } from "../components/PreferencesForm";
+import { ResearchSection } from "../components/ResearchSection";
 import { Gallery4 } from "../components/ui/gallery4";
 import { Feature } from "../components/ui/feature-section-with-bento-grid";
 import { Footer } from "../components/ui/footer";
@@ -15,6 +16,7 @@ const Index = () => {
         <Hero />
         <div className="container mx-auto px-4 py-16 space-y-24">
           <PreferencesForm />
+          <ResearchSection />
           <Gallery4 />
           <Feature />
         </div>
@@ -25,17 +27,17 @@ const Index = () => {
         socialLinks={[
           {
             icon: <Twitter className="h-5 w-5" />,
-            href: "https://twitter.com/neighborly",
+            href: "https://x.com/Gouravv_c",
             label: "Twitter",
           },
           {
             icon: <Github className="h-5 w-5" />,
-            href: "https://github.com/neighborly",
+            href: "https://github.com/GouravSittam",
             label: "GitHub",
           },
           {
             icon: <Linkedin className="h-5 w-5" />,
-            href: "https://linkedin.com/company/neighborly",
+            href: "https://www.linkedin.com/in/gouravsittam/",
             label: "LinkedIn",
           },
         ]}
@@ -52,7 +54,7 @@ const Index = () => {
           { href: "#cookies", label: "Cookie Policy" },
         ]}
         copyright={{
-          text: "© 2024 Neighborly",
+          text: "© 2025 Neighborly",
           license: "All rights reserved",
         }}
       />

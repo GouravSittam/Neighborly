@@ -29,16 +29,27 @@ function Feature() {
         const res = await fetch("/api/neighborhoods");
         if (!res.ok) throw new Error("Failed to fetch data");
         const data = await res.json();
-        const total = data.length;
-        const avgRent = Math.round(
-          data.reduce((sum: number, n: any) => sum + n.average_rent, 0) / total
-        );
-        const avgWalk = Math.round(
-          data.reduce((sum: number, n: any) => sum + n.walk_score, 0) / total
-        );
+        const dataArr = Array.isArray(data) ? data : [];
+        const total = dataArr.length;
+        const avgRent =
+          total > 0
+            ? Math.round(
+                dataArr.reduce(
+                  (sum: number, n: any) => sum + n.average_rent,
+                  0
+                ) / total
+              )
+            : 0;
+        const avgWalk =
+          total > 0
+            ? Math.round(
+                dataArr.reduce((sum: number, n: any) => sum + n.walk_score, 0) /
+                  total
+              )
+            : 0;
         // Count features
         const featureCounts: Record<string, number> = {};
-        data.forEach((n: any) =>
+        dataArr.forEach((n: any) =>
           n.features.forEach((f: string) => {
             featureCounts[f] = (featureCounts[f] || 0) + 1;
           })
@@ -49,7 +60,7 @@ function Feature() {
           .map(([f]) => f);
         // Most common city
         const cityCounts: Record<string, number> = {};
-        data.forEach((n: any) => {
+        dataArr.forEach((n: any) => {
           cityCounts[n.city] = (cityCounts[n.city] || 0) + 1;
         });
         const topCity =
@@ -95,7 +106,7 @@ function Feature() {
             <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square min-w-0">
               <DollarSign className="w-8 h-8 stroke-1 mb-2" />
               <div className="text-2xl md:text-3xl font-bold">
-                {loading ? "-" : `$${stats?.avgRent ?? "-"}`}
+                {loading ? "-" : stats?.avgRent ? `$${stats.avgRent}` : "-"}
               </div>
               <div className="text-muted-foreground text-sm md:text-base">
                 Avg. Rent
@@ -104,7 +115,7 @@ function Feature() {
             <div className="bg-muted rounded-md p-6 flex flex-col items-center justify-center aspect-square min-w-0">
               <TrendingUp className="w-8 h-8 stroke-1 mb-2" />
               <div className="text-2xl md:text-3xl font-bold">
-                {loading ? "-" : stats?.avgWalk ?? "-"}
+                {loading ? "-" : stats?.avgWalk ? stats.avgWalk : "-"}
               </div>
               <div className="text-muted-foreground text-sm md:text-base">
                 Avg. Walk Score

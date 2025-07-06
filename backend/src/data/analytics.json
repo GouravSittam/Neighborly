@@ -1,0 +1,29 @@
+{
+  "userBehavior": {
+    "totalSearches": 0,
+    "averagePreferences": {},
+    "mostPopularFeatures": [],
+    "searchPatterns": [],
+    "conversionRate": 0
+  },
+  "algorithmPerformance": {
+    "averageResponseTime": 0,
+    "accuracyScore": 85,
+    "userSatisfaction": 0,
+    "matchDistribution": {},
+    "algorithmVersion": "2.0"
+  },
+  "dataQuality": {
+    "dataCompleteness": 100,
+    "dataAccuracy": 95,
+    "lastUpdated": "2025-07-06T10:40:08.327Z",
+    "sourceReliability": 85,
+    "missingFields": []
+  },
+  "marketTrends": {
+    "rentTrends": [],
+    "neighborhoodPopularity": [],
+    "featureDemand": [],
+    "seasonalPatterns": []
+  }
+}
