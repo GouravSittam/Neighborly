@@ -79,83 +79,82 @@ interface FAQAccordionProps {
 
 const FAQ_SECTIONS: Record<ViewType, FAQSection> = {
   general: {
-    category: "General",
+    category: "Getting Started",
     items: [
       {
-        id: "what-is",
-        question: "What is ShapeX UI?",
+        id: "what-is-neighborly",
+        question: "What is Neighborly?",
         answer:
-          "ShapeX UI is a comprehensive design system and UI kit that helps designers and developers create consistent, beautiful interfaces.",
+          "Neighborly is a neighborhood matching application that helps you find the best place to live based on your lifestyle, budget, and preferences.",
       },
       {
-        id: "why-need",
-        question: "Why do I need a UI kit?",
+        id: "how-to-use",
+        question: "How do I use Neighborly?",
         answer:
-          "A UI kit helps maintain consistency across your projects, speeds up your workflow, and ensures best practices in design and development.",
+          "Simply fill out your preferences in the matching form, such as budget, commute time, and lifestyle interests. Neighborly will show you the best-matched neighborhoods instantly.",
       },
       {
-        id: "what does it offer",
-        question: "What is this UI library, and what does it offer?",
-        answer:
-          "This UI library is built on top of ShadCN UI and includes 30+ pre-designed components such as headers, footers, login forms, sign-up forms, FAQs, CTAs, contact sections, and more. It allows developers to quickly build high-quality user interfaces with ease.",
-      },
-      {
-        id: "tech stack",
-        question: "Is this library compatible with my project's tech stack?",
-        answer:
-          "Yes, the library is compatible with modern JavaScript frameworks like React.js and Next.js. It is designed to integrate seamlessly with Tailwind CSS, as it is built on ShadCN UI principles.",
-      },
-      {
-        id: "design needs",
-        question: "Can I customize the components to fit my design needs?",
-        answer:
-          "Absolutely! All components are fully customizable and allow you to tweak styles, variants, and layouts using Tailwind CSS or additional configurations.",
-      },
-      {
-        id: "dark mode",
-        question: "Does this library support dark mode?",
-        answer:
-          "Yes, the library fully supports dark mode out of the box. You can toggle between light and dark themes or configure the components to match your application's theme.",
+        id: "is-it-free",
+        question: "Is Neighborly free to use?",
+        answer: "Yes! Neighborly is completely free for all users.",
       },
       {
         id: "mobile-friendly",
-        question: "Are the components responsive and mobile-friendly?",
+        question: "Can I use Neighborly on my phone?",
         answer:
-          "Yes, all components are designed to be fully responsive, ensuring that they look great on devices of all sizes, from desktops to mobile phones.",
+          "Absolutely! Neighborly is fully responsive and works great on all devices, including smartphones and tablets.",
       },
       {
-        id: "open-source or paid",
-        question: "Is this library open-source or paid?",
-        answer: "The library is open-source.",
-      },
-      {
-        id: "request new features",
-        question:
-          "How can I contribute to or request new features for the library?",
+        id: "privacy",
+        question: "How is my data protected?",
         answer:
-          "Contributions are welcome! You can open issues or pull requests on our GitHub repository.",
+          "We take privacy seriously. Your preferences are only used to generate matches and are never shared with third parties.",
       },
     ],
   },
   icons: {
-    category: "Icons",
+    category: "Matching Algorithm",
     items: [
       {
-        id: "icon-formats",
-        question: "What icon formats are supported?",
+        id: "how-matching-works",
+        question: "How does the matching algorithm work?",
         answer:
-          "Our icons are available in multiple formats including SVG, PDF, and AI files.",
+          "Our algorithm analyzes over 100 factors, including your budget, commute, lifestyle, and priorities, to recommend neighborhoods that best fit your needs.",
+      },
+      {
+        id: "can-i-customize",
+        question: "Can I customize my match criteria?",
+        answer:
+          "Yes! You can adjust your preferences at any time to see updated matches instantly.",
+      },
+      {
+        id: "accuracy",
+        question: "How accurate are the matches?",
+        answer:
+          "Matches are based on the latest available data and your input. The more details you provide, the better your results.",
       },
     ],
   },
   library: {
-    category: "Library",
+    category: "Neighborhood Data",
     items: [
       {
-        id: "library-access",
-        question: "How do I access the library?",
+        id: "data-sources",
+        question: "Where does Neighborly get its neighborhood data?",
         answer:
-          "The library is available through our web platform after logging in to your account.",
+          "We use a combination of public datasets, local statistics, and user feedback to keep our neighborhood information up to date.",
+      },
+      {
+        id: "update-frequency",
+        question: "How often is the data updated?",
+        answer:
+          "Neighborhood data is updated regularly to ensure accuracy and relevance for all users.",
+      },
+      {
+        id: "suggest-neighborhood",
+        question: "Can I suggest a new neighborhood or report an error?",
+        answer:
+          "Yes! Please contact us through the feedback form if you'd like to suggest a new area or notice any incorrect information.",
       },
     ],
   },
