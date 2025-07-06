@@ -10,7 +10,11 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-function Feature() {
+interface FeatureProps {
+  refreshKey?: number;
+}
+
+function Feature({ refreshKey }: FeatureProps) {
   const [stats, setStats] = useState<null | {
     total: number;
     avgRent: number;
@@ -73,7 +77,7 @@ function Feature() {
       }
     };
     fetchStats();
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div className="w-full py-12 sm:py-20 lg:py-40">

@@ -70,7 +70,13 @@ type Match = {
   score: number;
 };
 
-export const PreferencesForm = () => {
+interface PreferencesFormProps {
+  onSearchComplete?: () => void;
+}
+
+export const PreferencesForm: React.FC<PreferencesFormProps> = ({
+  onSearchComplete,
+}) => {
   const [preferences, setPreferences] = useState({
     maxCommute: [30],
     budgetRange: [3000],
@@ -150,6 +156,8 @@ export const PreferencesForm = () => {
           console.warn("Failed to track analytics:", analyticsError);
         }
       }
+      // Call onSearchComplete after analytics
+      if (onSearchComplete) onSearchComplete();
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

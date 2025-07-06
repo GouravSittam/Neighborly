@@ -69,7 +69,13 @@ interface ResearchData {
   };
 }
 
-export const ResearchSection = () => {
+interface ResearchSectionProps {
+  refreshKey?: number;
+}
+
+export const ResearchSection: React.FC<ResearchSectionProps> = ({
+  refreshKey,
+}) => {
   const [researchData, setResearchData] = useState<ResearchData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +83,7 @@ export const ResearchSection = () => {
 
   useEffect(() => {
     fetchResearchData();
-  }, []);
+  }, [refreshKey]);
 
   const fetchResearchData = async () => {
     try {

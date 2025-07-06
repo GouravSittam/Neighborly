@@ -1,6 +1,6 @@
 {
   "userBehavior": {
-    "totalSearches": 8,
+    "totalSearches": 9,
     "averagePreferences": {
       "budgetRange": [
         3000
@@ -16,7 +16,7 @@
     },
     "mostPopularFeatures": [
       "food",
-      "commute"
+      "amenities"
     ],
     "searchPatterns": [
       {
@@ -154,16 +154,35 @@
         },
         "resultCount": 5,
         "sessionDuration": 2
+      },
+      {
+        "timestamp": "2025-07-06T11:14:07.449Z",
+        "preferences": {
+          "maxCommute": [
+            30
+          ],
+          "budgetRange": [
+            3000
+          ],
+          "lifestyle": [
+            "food"
+          ],
+          "priorities": [
+            "amenities"
+          ]
+        },
+        "resultCount": 5,
+        "sessionDuration": 1
       }
     ],
-    "conversionRate": 0.7999999999999999
+    "conversionRate": 0.8999999999999999
   },
   "algorithmPerformance": {
-    "averageResponseTime": 2,
+    "averageResponseTime": 1,
     "accuracyScore": 98,
     "userSatisfaction": 0,
     "matchDistribution": {
-      "5": 8
+      "5": 9
     },
     "algorithmVersion": "2.0"
   },
@@ -179,162 +198,162 @@
       {
         "neighborhoodId": 1,
         "month": "2025-07",
-        "averageRent": 2078,
-        "changePercent": -1.1
+        "averageRent": 1997,
+        "changePercent": -4.9
       },
       {
         "neighborhoodId": 2,
         "month": "2025-07",
-        "averageRent": 1462,
-        "changePercent": -2.5
+        "averageRent": 1853,
+        "changePercent": 2.9
       },
       {
         "neighborhoodId": 3,
         "month": "2025-07",
-        "averageRent": 1200,
-        "changePercent": 0
+        "averageRent": 1550,
+        "changePercent": 3.3
       },
       {
         "neighborhoodId": 4,
         "month": "2025-07",
-        "averageRent": 2040,
-        "changePercent": 2
+        "averageRent": 1466,
+        "changePercent": -2.2
       },
       {
         "neighborhoodId": 5,
         "month": "2025-07",
-        "averageRent": 1242,
-        "changePercent": 3.5
+        "averageRent": 2184,
+        "changePercent": 4
       },
       {
         "neighborhoodId": 6,
         "month": "2025-07",
-        "averageRent": 1172,
-        "changePercent": -2.3
+        "averageRent": 2195,
+        "changePercent": 4.5
       },
       {
         "neighborhoodId": 7,
         "month": "2025-07",
-        "averageRent": 1449,
-        "changePercent": -3.4
+        "averageRent": 1971,
+        "changePercent": -1.4
       },
       {
         "neighborhoodId": 8,
         "month": "2025-07",
-        "averageRent": 1946,
-        "changePercent": -2.7
+        "averageRent": 2044,
+        "changePercent": 2.2
       },
       {
         "neighborhoodId": 9,
         "month": "2025-07",
-        "averageRent": 2064,
-        "changePercent": 3.2
+        "averageRent": 2132,
+        "changePercent": 1.5
       },
       {
         "neighborhoodId": 10,
         "month": "2025-07",
-        "averageRent": 1967,
-        "changePercent": -1.6
+        "averageRent": 1425,
+        "changePercent": -5
       }
     ],
     "neighborhoodPopularity": [
       {
         "neighborhoodId": 1,
-        "searchCount": 44,
-        "matchCount": 18,
-        "popularityScore": 41
+        "searchCount": 77,
+        "matchCount": 28,
+        "popularityScore": 36
       },
       {
         "neighborhoodId": 2,
-        "searchCount": 81,
-        "matchCount": 29,
+        "searchCount": 87,
+        "matchCount": 31,
         "popularityScore": 36
       },
       {
         "neighborhoodId": 3,
+        "searchCount": 92,
+        "matchCount": 32,
+        "popularityScore": 35
+      },
+      {
+        "neighborhoodId": 4,
+        "searchCount": 50,
+        "matchCount": 20,
+        "popularityScore": 40
+      },
+      {
+        "neighborhoodId": 5,
+        "searchCount": 60,
+        "matchCount": 23,
+        "popularityScore": 38
+      },
+      {
+        "neighborhoodId": 6,
+        "searchCount": 101,
+        "matchCount": 35,
+        "popularityScore": 35
+      },
+      {
+        "neighborhoodId": 7,
         "searchCount": 52,
         "matchCount": 20,
         "popularityScore": 38
       },
       {
-        "neighborhoodId": 4,
-        "searchCount": 28,
-        "matchCount": 13,
-        "popularityScore": 46
-      },
-      {
-        "neighborhoodId": 5,
-        "searchCount": 82,
-        "matchCount": 29,
-        "popularityScore": 35
-      },
-      {
-        "neighborhoodId": 6,
-        "searchCount": 41,
-        "matchCount": 17,
-        "popularityScore": 41
-      },
-      {
-        "neighborhoodId": 7,
-        "searchCount": 19,
-        "matchCount": 10,
-        "popularityScore": 53
-      },
-      {
         "neighborhoodId": 8,
-        "searchCount": 34,
-        "matchCount": 15,
-        "popularityScore": 44
+        "searchCount": 106,
+        "matchCount": 36,
+        "popularityScore": 34
       },
       {
         "neighborhoodId": 9,
-        "searchCount": 51,
-        "matchCount": 20,
-        "popularityScore": 39
+        "searchCount": 68,
+        "matchCount": 25,
+        "popularityScore": 37
       },
       {
         "neighborhoodId": 10,
-        "searchCount": 72,
-        "matchCount": 26,
-        "popularityScore": 36
+        "searchCount": 63,
+        "matchCount": 23,
+        "popularityScore": 37
       }
     ],
     "featureDemand": [
       {
         "feature": "walkability",
-        "demandScore": 55,
-        "trend": "stable"
+        "demandScore": 65,
+        "trend": "increasing"
       },
       {
         "feature": "safety",
-        "demandScore": 32,
-        "trend": "decreasing"
+        "demandScore": 47,
+        "trend": "increasing"
       },
       {
         "feature": "affordability",
-        "demandScore": 53,
-        "trend": "increasing"
+        "demandScore": 72,
+        "trend": "decreasing"
       },
       {
         "feature": "nightlife",
-        "demandScore": 112,
-        "trend": "increasing"
-      },
-      {
-        "feature": "family-friendly",
-        "demandScore": 55,
+        "demandScore": 49,
         "trend": "stable"
       },
       {
-        "feature": "parks",
-        "demandScore": 81,
+        "feature": "family-friendly",
+        "demandScore": 33,
         "trend": "decreasing"
+      },
+      {
+        "feature": "parks",
+        "demandScore": 68,
+        "trend": "increasing"
       }
     ],
     "seasonalPatterns": [
       {
         "month": "2024-01",
-        "searchVolume": 476,
+        "searchVolume": 492,
         "popularFeatures": [
           "parks",
           "walkability"
@@ -342,42 +361,42 @@
       },
       {
         "month": "2024-02",
-        "searchVolume": 361,
+        "searchVolume": 593,
+        "popularFeatures": [
+          "nightlife",
+          "parks"
+        ]
+      },
+      {
+        "month": "2024-03",
+        "searchVolume": 284,
         "popularFeatures": [
           "family-friendly",
           "parks"
         ]
       },
       {
-        "month": "2024-03",
-        "searchVolume": 524,
-        "popularFeatures": [
-          "walkability",
-          "nightlife"
-        ]
-      },
-      {
         "month": "2024-04",
-        "searchVolume": 809,
+        "searchVolume": 235,
         "popularFeatures": [
-          "nightlife",
-          "family-friendly"
+          "family-friendly",
+          "parks"
         ]
       },
       {
         "month": "2024-05",
-        "searchVolume": 813,
+        "searchVolume": 1042,
         "popularFeatures": [
-          "parks",
-          "walkability"
+          "family-friendly",
+          "parks"
         ]
       },
       {
         "month": "2024-06",
-        "searchVolume": 134,
+        "searchVolume": 618,
         "popularFeatures": [
-          "nightlife",
-          "family-friendly"
+          "walkability",
+          "parks"
         ]
       }
     ]
