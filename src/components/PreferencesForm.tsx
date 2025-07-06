@@ -26,6 +26,7 @@ import {
   Coffee,
 } from "lucide-react";
 import { NeighborhoodGrid } from "./NeighborhoodGrid";
+import InsightSection from "@/components/InsightSection";
 
 interface MatchResult {
   neighborhood: {
@@ -318,9 +319,10 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
         </form>
         {/* Display matches */}
         {matches.length > 0 && (
-          <div className="max-w-6xl mx-auto mt-12">
+          <section id="discover" className="max-w-6xl mx-auto mt-12">
             <NeighborhoodGrid matches={matches} />
-          </div>
+            <InsightSection />
+          </section>
         )}
       </div>
     </section>

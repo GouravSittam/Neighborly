@@ -8,6 +8,8 @@ import { Gallery4 } from "../components/ui/gallery4";
 import { Feature } from "../components/ui/feature-section-with-bento-grid";
 import { Footer } from "../components/ui/footer";
 import { Component as FAQSection } from "@/components/ui/faq-section";
+import SuccessStory from "@/components/SuccessStory";
+import InsightSection from "@/components/InsightSection";
 
 const CommunityHighlights = () => (
   <section className="w-full py-16 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
@@ -100,7 +102,21 @@ const Index = () => {
           <ResearchSection refreshKey={refreshKey} />
           <Gallery4 />
           <CommunityHighlights />
+          <SuccessStory />
           <FAQSection />
+          {/* Discover section with placeholder */}
+          <section id="discover" className="max-w-6xl mx-auto mt-12">
+            <div className="text-center py-16">
+              <h2 className="text-3xl font-bold mb-4">
+                Your Perfect Neighborhood Matches
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-8">
+                Start your search above to discover neighborhoods that match
+                your preferences.
+              </p>
+            </div>
+            <InsightSection />
+          </section>
         </div>
       </main>
       <Footer
