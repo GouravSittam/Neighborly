@@ -7,7 +7,8 @@
     "dev": "nodemon",
     "start": "ts-node src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "npx tsc",
+    "vercel-build": "npx tsc",
     "analyze": "ts-node src/scripts/analyze-data.ts"
   },
   "keywords": [
