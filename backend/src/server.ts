@@ -497,7 +497,7 @@ function requireAuth(
 
 // Signup endpoint
 app.post("/api/signup", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password required" });
   }
@@ -505,7 +505,7 @@ app.post("/api/signup", async (req, res) => {
     return res.status(409).json({ error: "User already exists" });
   }
   const passwordHash = await bcrypt.hash(password, 10);
-  const user: User = { id: userIdCounter++, email, passwordHash };
+  const user: User = { id: userIdCounter++, email, passwordHash, name };
   users.push(user);
   res.status(201).json({ message: "User created" });
 });
@@ -517,22 +517,31 @@ app.post("/api/login", async (req, res) => {
   if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
     return res.status(401).json({ error: "Invalid credentials" });
   }
-  const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = jwt.sign(
+    { id: user.id, email: user.email, name: user.name },
+    JWT_SECRET,
+    { expiresIn: "1h" }
+  );
   res.cookie("token", token, {
     httpOnly: true,
     secure: true, // set to true in production
     sameSite: "strict",
     maxAge: 60 * 60 * 1000,
   });
-  res.json({ message: "Logged in" });
+  res.json({
+    message: "Logged in",
+    user: { id: user.id, email: user.email, name: user.name },
+  });
 });
 
 // /me endpoint
 app.get("/api/me", requireAuth, (req: AuthenticatedRequest, res: Response) => {
   if (!req.user) return res.status(401).json({ error: "Not authenticated" });
-  res.json({ user: { id: req.user.id, email: req.user.email } });
+  // Find user by id to get name
+  const user = users.find((u) => u.id === req.user!.id);
+  res.json({
+    user: { id: req.user.id, email: req.user.email, name: user?.name },
+  });
 });
 
 // Logout endpoint

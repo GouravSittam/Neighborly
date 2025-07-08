@@ -11,83 +11,27 @@ import {
 import { Navbar1 } from "@/components/ui/navbar1";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { AnimatedSignIn } from "@/components/ui/sign-in";
+import { useAuth } from "@/hooks/use-auth";
+import Signup from "@/components/ui/signup";
 
 export const Header = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const {
+    user,
+    login,
+    logout,
+    loading: authLoading,
+    error: authError,
+  } = useAuth();
 
   const openLoginModal = () => setShowLogin(true);
   const openSignupModal = () => setShowSignup(true);
   const closeLoginModal = () => setShowLogin(false);
   const closeSignupModal = () => setShowSignup(false);
 
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
-  const [loginSuccess, setLoginSuccess] = useState("");
-
-  const [signupEmail, setSignupEmail] = useState("");
-  const [signupPassword, setSignupPassword] = useState("");
-  const [signupError, setSignupError] = useState("");
-  const [signupSuccess, setSignupSuccess] = useState("");
-
-  async function handleLogin(e: React.FormEvent) {
-    e.preventDefault();
-    setLoginError("");
-    setLoginSuccess("");
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Login failed");
-      setLoginSuccess("Logged in!");
-      setTimeout(() => {
-        setShowLogin(false);
-        setLoginEmail("");
-        setLoginPassword("");
-        setLoginSuccess("");
-      }, 1000);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setLoginError(err.message);
-      } else {
-        setLoginError("Login failed");
-      }
-    }
-  }
-
-  async function handleSignup(e: React.FormEvent) {
-    e.preventDefault();
-    setSignupError("");
-    setSignupSuccess("");
-    try {
-      const res = await fetch("/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email: signupEmail, password: signupPassword }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Signup failed");
-      setSignupSuccess("Account created! You can now sign in.");
-      setTimeout(() => {
-        setShowSignup(false);
-        setSignupEmail("");
-        setSignupPassword("");
-        setSignupSuccess("");
-      }, 1200);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setSignupError(err.message);
-      } else {
-        setSignupError("Signup failed");
-      }
-    }
-  }
+  // Remove local login state and signup state
+  // Remove handleSignup, signupEmail, setSignupEmail, signupPassword, setSignupPassword, signupError, signupSuccess
 
   const navbarData = {
     logo: {
@@ -173,10 +117,15 @@ export const Header = () => {
       { name: "Privacy", url: "#privacy" },
       { name: "Terms", url: "#terms" },
     ],
-    auth: {
-      login: { text: "Sign In", action: openLoginModal },
-      signup: { text: "Get Started", action: openSignupModal },
-    },
+    auth: user
+      ? {
+          login: { text: user.name || user.email, action: logout },
+          signup: { text: "Logout", action: logout },
+        }
+      : {
+          login: { text: "Sign In", action: openLoginModal },
+          signup: { text: "Get Started", action: openSignupModal },
+        },
     themeToggle: <ThemeToggle />,
   };
 
@@ -193,50 +142,25 @@ export const Header = () => {
             >
               &times;
             </button>
-            <AnimatedSignIn />
+            <AnimatedSignIn onSuccess={closeLoginModal} />
+            {authError && (
+              <div className="text-red-600 text-center mt-2">{authError}</div>
+            )}
           </div>
         </div>
       )}
+      {/* TODO: Implement signup modal with global auth context */}
       {showSignup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded shadow-lg relative w-full max-w-sm">
+          <div className="relative w-full max-w-2xl">
             <button
-              className="absolute top-2 right-2"
+              className="absolute top-2 right-2 z-10 bg-white/80 rounded-full p-2"
               onClick={closeSignupModal}
+              aria-label="Close sign up modal"
             >
               &times;
             </button>
-            <h2 className="text-xl font-bold mb-4">Sign Up</h2>
-            <form onSubmit={handleSignup} className="space-y-4">
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full border p-2 rounded"
-                value={signupEmail}
-                onChange={(e) => setSignupEmail(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full border p-2 rounded"
-                value={signupPassword}
-                onChange={(e) => setSignupPassword(e.target.value)}
-                required
-              />
-              <button
-                type="submit"
-                className="w-full bg-green-600 text-white py-2 rounded"
-              >
-                Sign Up
-              </button>
-              {signupError && (
-                <div className="text-red-600 text-sm">{signupError}</div>
-              )}
-              {signupSuccess && (
-                <div className="text-green-600 text-sm">{signupSuccess}</div>
-              )}
-            </form>
+            <Signup onSuccess={closeSignupModal} />
           </div>
         </div>
       )}

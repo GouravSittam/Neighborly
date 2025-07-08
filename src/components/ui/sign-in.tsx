@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 interface AnimatedSignInProps {
   onSuccess?: () => void;
 }
 
 const AnimatedSignIn: React.FC<AnimatedSignInProps> = ({ onSuccess }) => {
+  const { login, refresh } = useAuth();
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -31,14 +33,8 @@ const AnimatedSignIn: React.FC<AnimatedSignInProps> = ({ onSuccess }) => {
     setError("");
     setSuccess("");
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Login failed");
+      await login(email, password);
+      await refresh();
       setSuccess("Logged in!");
       setTimeout(() => {
         setEmail("");
