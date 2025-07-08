@@ -31,6 +31,12 @@ interface MenuItem {
   items?: MenuItem[];
 }
 
+interface Navbar1AuthButton {
+  text: string;
+  url?: string;
+  action?: () => void;
+}
+
 interface Navbar1Props {
   logo?: {
     url: string;
@@ -44,14 +50,8 @@ interface Navbar1Props {
     url: string;
   }[];
   auth?: {
-    login: {
-      text: string;
-      url: string;
-    };
-    signup: {
-      text: string;
-      url: string;
-    };
+    login: Navbar1AuthButton;
+    signup: Navbar1AuthButton;
   };
   themeToggle?: React.ReactNode;
 }
@@ -172,17 +172,38 @@ const Navbar1 = ({
           </div>
           <div className="flex items-center gap-2">
             {themeToggle}
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="min-w-[44px] min-h-[44px]"
-            >
-              <a href={auth.login.url}>{auth.login.text}</a>
-            </Button>
-            <Button asChild size="sm" className="min-w-[44px] min-h-[44px]">
-              <a href={auth.signup.url}>{auth.signup.text}</a>
-            </Button>
+            {auth.login.action ? (
+              <Button
+                variant="outline"
+                size="sm"
+                className="min-w-[44px] min-h-[44px]"
+                onClick={auth.login.action}
+              >
+                {auth.login.text}
+              </Button>
+            ) : (
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="min-w-[44px] min-h-[44px]"
+              >
+                <a href={auth.login.url}>{auth.login.text}</a>
+              </Button>
+            )}
+            {auth.signup.action ? (
+              <Button
+                size="sm"
+                className="min-w-[44px] min-h-[44px]"
+                onClick={auth.signup.action}
+              >
+                {auth.signup.text}
+              </Button>
+            ) : (
+              <Button asChild size="sm" className="min-w-[44px] min-h-[44px]">
+                <a href={auth.signup.url}>{auth.signup.text}</a>
+              </Button>
+            )}
           </div>
         </nav>
         <div className="block lg:hidden">
@@ -249,16 +270,36 @@ const Navbar1 = ({
                       </div>
                     </div>
                     <div className="flex flex-col gap-3">
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="min-w-[44px] min-h-[44px]"
-                      >
-                        <a href={auth.login.url}>{auth.login.text}</a>
-                      </Button>
-                      <Button asChild className="min-w-[44px] min-h-[44px]">
-                        <a href={auth.signup.url}>{auth.signup.text}</a>
-                      </Button>
+                      {auth.login.action ? (
+                        <Button
+                          variant="outline"
+                          className="min-w-[44px] min-h-[44px]"
+                          onClick={auth.login.action}
+                        >
+                          {auth.login.text}
+                        </Button>
+                      ) : (
+                        <Button
+                          asChild
+                          variant="outline"
+                          className="min-w-[44px] min-h-[44px]"
+                        >
+                          <a href={auth.login.url}>{auth.login.text}</a>
+                        </Button>
+                      )}
+                      {auth.signup.action ? (
+                        <Button
+                          size="sm"
+                          className="min-w-[44px] min-h-[44px]"
+                          onClick={auth.signup.action}
+                        >
+                          {auth.signup.text}
+                        </Button>
+                      ) : (
+                        <Button asChild className="min-w-[44px] min-h-[44px]">
+                          <a href={auth.signup.url}>{auth.signup.text}</a>
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </SheetContent>

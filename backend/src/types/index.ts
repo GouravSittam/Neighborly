@@ -165,3 +165,9 @@ export interface FilterParams {
   minWalkScore?: number;
   minSafetyRating?: number;
 }
+
+export interface User {
+  id: number;
+  email: string;
+  passwordHash: string;
+}

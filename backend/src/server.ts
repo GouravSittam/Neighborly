@@ -1,10 +1,13 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import compression from "compression";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import fs from "fs";
 import path from "path";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import cookieParser from "cookie-parser";
 
 // Import our services
 import { MatchingAlgorithm } from "./services/matching-algorithm";
@@ -20,20 +23,27 @@ import {
   ResearchData,
   FilterParams,
   PaginationParams,
+  User,
 } from "./types";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+const JWT_SECRET = process.env.JWT_SECRET || "super-secret-key";
+const users: User[] = [];
+let userIdCounter = 1;
+
+// Extend Express Request type to include user
+interface AuthenticatedRequest extends Request {
+  user?: { id: number; email: string };
+}
 
 // Security and performance middleware
 app.use(helmet());
 app.use(compression());
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? ["https://yourdomain.com"]
-        : ["http://localhost:5173", "http://localhost:3000"],
+    origin: "http://localhost:5173", // adjust as needed
     credentials: true,
   })
 );
@@ -47,6 +57,7 @@ const limiter = rateLimit({
 app.use("/api/", limiter);
 
 app.use(express.json({ limit: "10mb" }));
+app.use(cookieParser());
 
 // Global variables
 let neighborhoods: Neighborhood[] = [];
@@ -466,6 +477,68 @@ app.get("/api/stats", (_req, res) => {
       timestamp: new Date(),
     });
   }
+});
+
+// Auth middleware
+function requireAuth(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) {
+  const token = req.cookies.token;
+  if (!token) return res.status(401).json({ error: "Not authenticated" });
+  try {
+    req.user = jwt.verify(token, JWT_SECRET) as { id: number; email: string };
+    next();
+  } catch {
+    res.status(401).json({ error: "Invalid token" });
+  }
+}
+
+// Signup endpoint
+app.post("/api/signup", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password required" });
+  }
+  if (users.find((u) => u.email === email)) {
+    return res.status(409).json({ error: "User already exists" });
+  }
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user: User = { id: userIdCounter++, email, passwordHash };
+  users.push(user);
+  res.status(201).json({ message: "User created" });
+});
+
+// Login endpoint
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = users.find((u) => u.email === email);
+  if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
+    return res.status(401).json({ error: "Invalid credentials" });
+  }
+  const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+    expiresIn: "1h",
+  });
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true, // set to true in production
+    sameSite: "strict",
+    maxAge: 60 * 60 * 1000,
+  });
+  res.json({ message: "Logged in" });
+});
+
+// /me endpoint
+app.get("/api/me", requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  if (!req.user) return res.status(401).json({ error: "Not authenticated" });
+  res.json({ user: { id: req.user.id, email: req.user.email } });
+});
+
+// Logout endpoint
+app.post("/api/logout", (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "Logged out" });
 });
 
 // Error handling middleware
