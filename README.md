@@ -8,7 +8,11 @@
   <em>Discover your perfect neighborhood match—backed by data, designed for you.</em>
 </p>
 
-
+<p align="center">
+  <a href="https://github.com/neighborfit">
+    <img src="https://img.shields.io/github/stars/GouravSittam/Neighborly?style=social" alt="GitHub stars">
+  </a>
+</p>
 
 ---
 
@@ -43,8 +47,6 @@ npm install
 npm run dev
 ```
 
-Or edit instantly online with [Lovable](https://lovable.dev/projects/b1766688-1f3f-47a1-bbed-40ff891b7b83).
-
 ---
 
 ## 🛠 Stack
@@ -53,7 +55,7 @@ Or edit instantly online with [Lovable](https://lovable.dev/projects/b1766688-1f
 - **Backend:** Node.js, Express (see `/server`)
 - **Data Pipeline:** ETL scripts, public datasets, caching
 - **Testing:** Jest, Integration & Unit tests
-- **Deployment:** Vercel, Custom Domain support
+- **Deployment:** Vercel, Netlify, or any Node-friendly provider
 
 ---
 
@@ -76,10 +78,10 @@ For deep technical analysis, see [`client/PROBLEM_SOLVING_DOCUMENTATION.md`](cli
 
 ## 🌍 Deploy & Custom Domain
 
-Neighborly is ready for deployment to Vercel, Netlify, or any Node-friendly cloud provider.
+Neighborly can be deployed to Vercel, Netlify, or any Node-friendly cloud provider.
 
-1. **Deploy to Vercel:**
-   - Connect your fork to Vercel and deploy instantly.
+1. **Deploy to Vercel or Netlify:**
+   - Connect your fork and deploy instantly.
 
 2. **Custom Domain:**
    - Set your custom domain in your deployment dashboard for a branded experience.
