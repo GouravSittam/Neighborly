@@ -101,11 +101,8 @@ const Index = () => {
           <PreferencesForm onSearchComplete={handleSearchComplete} />
           <ResearchSection refreshKey={refreshKey} />
           <Gallery4 />
-          <CommunityHighlights />
-          <SuccessStory />
-          <FAQSection />
-          {/* Discover section with placeholder */}
-          <section id="discover" className="max-w-6xl mx-auto mt-12">
+            {/* Discover section with placeholder */}
+            <section id="discover" className="max-w-6xl mx-auto mt-12">
             <div className="text-center py-16">
               <h2 className="text-3xl font-bold mb-4">
                 Your Perfect Neighborhood Matches
@@ -117,6 +114,22 @@ const Index = () => {
             </div>
             <InsightSection />
           </section>
+          <CommunityHighlights />
+          <SuccessStory />
+          <FAQSection />
+          {/* Discover section with placeholder */}
+          {/* <section id="discover" className="max-w-6xl mx-auto mt-12">
+            <div className="text-center py-16">
+              <h2 className="text-3xl font-bold mb-4">
+                Your Perfect Neighborhood Matches
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-8">
+                Start your search above to discover neighborhoods that match
+                your preferences.
+              </p>
+            </div>
+            <InsightSection />
+          </section> */}
         </div>
       </main>
       <Footer
