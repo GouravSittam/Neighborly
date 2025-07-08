@@ -8,14 +8,7 @@
   <em>Discover your perfect neighborhood match—backed by data, designed for you.</em>
 </p>
 
-<p align="center">
-  <a href="https://lovable.dev/projects/b1766688-1f3f-47a1-bbed-40ff891b7b83">
-    <img src="https://img.shields.io/badge/Lovable-Edit%20Online-ffb347?logo=vercel&logoColor=white" alt="Edit on Lovable">
-  </a>
-  <a href="https://github.com/neighborfit">
-    <img src="https://img.shields.io/github/stars/GouravSittam/Neighborly?style=social" alt="GitHub stars">
-  </a>
-</p>
+
 
 ---
 
@@ -27,28 +20,12 @@ Neighborly is a modern, data-driven web app that helps you find neighborhoods th
 
 ## 🚀 Features
 
-<div align="center">
-  
-| <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop" width="220"/> | <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop" width="220"/> | <img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=600&h=400&fit=crop" width="220"/> |
-|:---:|:---:|:---:|
-| City Living | Waterfront Luxury | Arts & Culture |
-
-</div>
-
-- **🔍 Data-Driven Matching:**  
-  Our advanced algorithm analyzes over **100 lifestyle factors** to find the perfect match for you.
-
-- **🗺 Neighborhood Gallery:**  
-  Explore beautifully curated neighborhood cards, with images and detailed descriptions.
-
-- **📊 Transparent Research:**  
-  Interactive research dashboards reveal data sources, challenges, and creative solutions.
-
-- **⚡ Lightning-Fast UI:**  
-  Built with Vite, React, Tailwind CSS, and shadcn-ui for a seamless, modern experience.
-
-- **🛠 Effortless Editing & Deployment:**  
-  Instantly update your app using Lovable, GitHub, Codespaces, or your favorite IDE.
+- **Personalized Neighborhood Matching:** Advanced algorithm matches users to neighborhoods based on their lifestyle preferences.
+- **Comprehensive Data:** Uses extensive public data and real-time preference matching.
+- **Interactive UI:** Clean, modern front-end for smooth exploration.
+- **Daily Updated Pipeline:** Automated ETL pipeline keeps data fresh.
+- **Robust API:** Modular backend with documented endpoints.
+- **Rapid Prototyping:** Designed for quick testing and iteration.
 
 ---
 
@@ -56,7 +33,7 @@ Neighborly is a modern, data-driven web app that helps you find neighborhoods th
 
 ```bash
 # 1. Clone the repository
-git clone <YOUR_GIT_URL>
+git clone https://github.com/GouravSittam/Neighborly.git
 cd Neighborly
 
 # 2. Install dependencies
@@ -70,39 +47,72 @@ Or edit instantly online with [Lovable](https://lovable.dev/projects/b1766688-1f
 
 ---
 
+## 🛠 Stack
+
+- **Frontend:** React, TypeScript
+- **Backend:** Node.js, Express (see `/server`)
+- **Data Pipeline:** ETL scripts, public datasets, caching
+- **Testing:** Jest, Integration & Unit tests
+- **Deployment:** Vercel, Custom Domain support
+
+---
+
 ## 📚 Research & Methodology
 
 > _"Our approach combines systematic research, data analysis, and algorithmic thinking to solve the neighborhood-lifestyle matching problem."_
 
-**Data Pipeline:**  
-ETL process runs daily to update scores, with real-time preference matching.
+- **Data Pipeline:**  
+  ETL process runs daily to update scores, with real-time preference matching.
+- **Challenges & Solutions:**
+  - Inconsistent boundaries, missing data, API rate limits
+  - **Solutions:** Web scraping (with respect), data interpolation, crowdsourced validation, caching for efficiency
+- **Limitations & Future Plans:**
+  - Public data only, seasonal/cultural factors limited
+  - **Coming Soon:** Real estate API integration, ML from feedback, mobile app
 
-**Challenges & Solutions:**
-- Inconsistent boundaries, missing data, API rate limits
-- **Solutions:** Web scraping (with respect), data interpolation, crowdsourced validation, caching for efficiency
-
-**Limitations & Future Plans:**
-- Public data only, seasonal/cultural factors limited
-- **Coming Soon:** Real estate API integration, ML from feedback, mobile app
-
----
-
-## 🛠 Stack
-
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=react,typescript,tailwind,vite" />
-</p>
-
-- **Front-End:** React, TypeScript, Tailwind CSS, shadcn-ui
-- **Dev Tools:** Vite, Lovable, Codespaces
+For deep technical analysis, see [`client/PROBLEM_SOLVING_DOCUMENTATION.md`](client/PROBLEM_SOLVING_DOCUMENTATION.md).
 
 ---
 
 ## 🌍 Deploy & Custom Domain
 
-- **Publish Instantly:** Use [Lovable](https://lovable.dev/projects/b1766688-1f3f-47a1-bbed-40ff891b7b83) (Share → Publish)
-- **Connect Your Domain:** Go to _Project → Settings → Domains_ in Lovable  
-  [Step-by-step guide →](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Neighborly is ready for deployment to Vercel, Netlify, or any Node-friendly cloud provider.
+
+1. **Deploy to Vercel:**
+   - Connect your fork to Vercel and deploy instantly.
+
+2. **Custom Domain:**
+   - Set your custom domain in your deployment dashboard for a branded experience.
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Make your changes and commit (`git commit -m 'Add some feature'`).
+4. Push to your branch (`git push origin feature/your-feature`).
+5. Open a pull request.
+
+Read our [Code of Conduct](CODE_OF_CONDUCT.md) and [Contribution Guidelines](CONTRIBUTING.md) before contributing.
+
+---
+
+## 📂 Repository Structure
+
+- `/client` – Frontend React app
+- `/server` – Backend API and data pipeline
+- `/data` – Neighborhood datasets
+- `README.md` – Project overview (this file)
+
+---
+
+## 📑 Documentation
+
+- **API & Endpoints:** See [`server/README.md`](server/README.md)
+- **Research, Methodology, and Deliverables:** See [`client/PROBLEM_SOLVING_DOCUMENTATION.md`](client/PROBLEM_SOLVING_DOCUMENTATION.md)
 
 ---
 
