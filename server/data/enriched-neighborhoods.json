@@ -17,19 +17,19 @@
     "state": "IL",
     "transit_score": 81,
     "bike_score": 75,
-    "population_density": 4810,
-    "median_age": 35,
-    "median_income": 48350,
-    "unemployment_rate": 5,
+    "population_density": 5074,
+    "median_age": 39,
+    "median_income": 46678,
+    "unemployment_rate": 6,
     "weather_data": {
-      "average_temp": 69,
-      "precipitation_days": 126,
-      "sunny_days": 263,
-      "climate_type": "Subtropical"
+      "average_temp": 65,
+      "precipitation_days": 130,
+      "sunny_days": 261,
+      "climate_type": "Mediterranean"
     },
     "coordinates": {
-      "lat": 39.772249255360954,
-      "lng": -89.65971432672812
+      "lat": 39.817920005770986,
+      "lng": -89.64236041720312
     }
   },
   {
@@ -50,19 +50,19 @@
     "state": "IL",
     "transit_score": 87,
     "bike_score": 67,
-    "population_density": 4125,
-    "median_age": 39,
-    "median_income": 78923,
-    "unemployment_rate": 4.3,
+    "population_density": 4240,
+    "median_age": 31,
+    "median_income": 71007,
+    "unemployment_rate": 5,
     "weather_data": {
-      "average_temp": 64,
-      "precipitation_days": 105,
-      "sunny_days": 256,
+      "average_temp": 61,
+      "precipitation_days": 143,
+      "sunny_days": 233,
       "climate_type": "Subtropical"
     },
     "coordinates": {
-      "lat": 39.75600481280248,
-      "lng": -89.63953116154848
+      "lat": 39.81218764969147,
+      "lng": -89.6443255295637
     }
   },
   {
@@ -83,19 +83,19 @@
     "state": "IL",
     "transit_score": 42,
     "bike_score": 64,
-    "population_density": 6309,
-    "median_age": 30,
-    "median_income": 58570,
-    "unemployment_rate": 5.3,
+    "population_density": 5460,
+    "median_age": 35,
+    "median_income": 57965,
+    "unemployment_rate": 5.5,
     "weather_data": {
-      "average_temp": 67,
-      "precipitation_days": 115,
-      "sunny_days": 218,
-      "climate_type": "Subtropical"
+      "average_temp": 71,
+      "precipitation_days": 122,
+      "sunny_days": 210,
+      "climate_type": "Oceanic"
     },
     "coordinates": {
-      "lat": 39.82471556470578,
-      "lng": -89.67632826045022
+      "lat": 39.78962710804588,
+      "lng": -89.6049308143176
     }
   },
   {
@@ -116,19 +116,19 @@
     "state": "CA",
     "transit_score": 47,
     "bike_score": 55,
-    "population_density": 5855,
-    "median_age": 39,
-    "median_income": 51961,
-    "unemployment_rate": 6.5,
+    "population_density": 7863,
+    "median_age": 38,
+    "median_income": 52859,
+    "unemployment_rate": 3.7,
     "weather_data": {
-      "average_temp": 70,
-      "precipitation_days": 116,
-      "sunny_days": 264,
-      "climate_type": "Mediterranean"
+      "average_temp": 71,
+      "precipitation_days": 103,
+      "sunny_days": 210,
+      "climate_type": "Subtropical"
     },
     "coordinates": {
-      "lat": 37.734039021363806,
-      "lng": -122.37778499196995
+      "lat": 37.7638913998555,
+      "lng": -122.38718168105929
     }
   },
   {
@@ -149,19 +149,19 @@
     "state": "CA",
     "transit_score": 53,
     "bike_score": 62,
-    "population_density": 4166,
-    "median_age": 38,
-    "median_income": 49538,
-    "unemployment_rate": 3.5,
+    "population_density": 5376,
+    "median_age": 36,
+    "median_income": 52576,
+    "unemployment_rate": 4.8,
     "weather_data": {
-      "average_temp": 75,
-      "precipitation_days": 101,
-      "sunny_days": 298,
+      "average_temp": 64,
+      "precipitation_days": 102,
+      "sunny_days": 278,
       "climate_type": "Subtropical"
     },
     "coordinates": {
-      "lat": 37.7337558555731,
-      "lng": -122.42683678116175
+      "lat": 37.801408591641604,
+      "lng": -122.45322917377808
     }
   },
   {
@@ -182,19 +182,19 @@
     "state": "CA",
     "transit_score": 55,
     "bike_score": 64,
-    "population_density": 5198,
-    "median_age": 38,
-    "median_income": 80970,
-    "unemployment_rate": 4,
+    "population_density": 4684,
+    "median_age": 34,
+    "median_income": 80729,
+    "unemployment_rate": 4.5,
     "weather_data": {
-      "average_temp": 70,
-      "precipitation_days": 131,
-      "sunny_days": 231,
+      "average_temp": 58,
+      "precipitation_days": 138,
+      "sunny_days": 299,
       "climate_type": "Continental"
     },
     "coordinates": {
-      "lat": 37.74901656632799,
-      "lng": -122.40854901029661
+      "lat": 37.762599508003795,
+      "lng": -122.4533312298071
     }
   },
   {
@@ -215,19 +215,19 @@
     "state": "CA",
     "transit_score": 39,
     "bike_score": 46,
-    "population_density": 5104,
-    "median_age": 37,
-    "median_income": 60195,
-    "unemployment_rate": 5.6,
+    "population_density": 6017,
+    "median_age": 35,
+    "median_income": 58902,
+    "unemployment_rate": 4.5,
     "weather_data": {
-      "average_temp": 61,
-      "precipitation_days": 128,
-      "sunny_days": 282,
+      "average_temp": 67,
+      "precipitation_days": 143,
+      "sunny_days": 248,
       "climate_type": "Continental"
     },
     "coordinates": {
-      "lat": 37.730604814786844,
-      "lng": -122.39692308974453
+      "lat": 37.77903870323902,
+      "lng": -122.46929870874057
     }
   },
   {
@@ -248,19 +248,19 @@
     "state": "NY",
     "transit_score": 54,
     "bike_score": 63,
-    "population_density": 5777,
-    "median_age": 34,
-    "median_income": 87560,
-    "unemployment_rate": 2.6,
+    "population_density": 5611,
+    "median_age": 32,
+    "median_income": 86944,
+    "unemployment_rate": 5,
     "weather_data": {
-      "average_temp": 58,
-      "precipitation_days": 135,
-      "sunny_days": 225,
-      "climate_type": "Continental"
+      "average_temp": 57,
+      "precipitation_days": 128,
+      "sunny_days": 249,
+      "climate_type": "Oceanic"
     },
     "coordinates": {
-      "lat": 40.68692747455077,
-      "lng": -73.95705369681433
+      "lat": 40.73754869881181,
+      "lng": -74.03533794126632
     }
   },
   {
@@ -281,19 +281,19 @@
     "state": "NY",
     "transit_score": 48,
     "bike_score": 71,
-    "population_density": 5454,
-    "median_age": 36,
-    "median_income": 45875,
-    "unemployment_rate": 4.7,
+    "population_density": 4369,
+    "median_age": 44,
+    "median_income": 46631,
+    "unemployment_rate": 5.3,
     "weather_data": {
-      "average_temp": 61,
-      "precipitation_days": 111,
-      "sunny_days": 271,
+      "average_temp": 71,
+      "precipitation_days": 137,
+      "sunny_days": 265,
       "climate_type": "Oceanic"
     },
     "coordinates": {
-      "lat": 40.708527353904365,
-      "lng": -74.03820844345675
+      "lat": 40.67510791959287,
+      "lng": -73.96259410468078
     }
   },
   {
@@ -314,19 +314,19 @@
     "state": "IL",
     "transit_score": 52,
     "bike_score": 61,
-    "population_density": 4460,
-    "median_age": 32,
-    "median_income": 62664,
-    "unemployment_rate": 5.9,
+    "population_density": 5404,
+    "median_age": 34,
+    "median_income": 63049,
+    "unemployment_rate": 3.6,
     "weather_data": {
-      "average_temp": 67,
-      "precipitation_days": 118,
-      "sunny_days": 288,
-      "climate_type": "Continental"
+      "average_temp": 69,
+      "precipitation_days": 125,
+      "sunny_days": 273,
+      "climate_type": "Oceanic"
     },
     "coordinates": {
-      "lat": 39.736556868399454,
-      "lng": -89.61334764966863
+      "lat": 39.746402716417194,
+      "lng": -89.64709391123797
     }
   }
 ]

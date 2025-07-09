@@ -132,7 +132,7 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
     const sessionDuration = Date.now() - sessionStartTime;
 
     try {
-      const res = await fetch("http://localhost:4000/api/match", {
+      const res = await fetch("http://localhost:4000/api/match?limit=15", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(preferences),

@@ -237,26 +237,27 @@ export const NeighborhoodGrid: React.FC<NeighborhoodGridProps> = ({
               </div>
 
               {/* Score Breakdown */}
-              <div className="space-y-3">
-                <h4 className="font-semibold text-sm">Match Breakdown</h4>
-                <div className="space-y-2">
-                  {Object.entries(match.scoreBreakdown)
-                    .filter(([key]) => key !== "total")
-                    .map(([category, score]) => (
-                      <div key={category} className="space-y-1">
-                        <div className="flex justify-between text-xs">
-                          <span className="capitalize">{category}</span>
-                          <span className={getScoreColor(score)}>
-                            {Math.round(score)}
-                          </span>
-                        </div>
-                        <Progress
-                          value={(score / 1000) * 100}
-                          className="h-1"
-                        />
-                      </div>
-                    ))}
+              <div className="mt-4">
+                <div className="font-semibold text-gray-700 mb-1">
+                  Why this match?
                 </div>
+                <ul className="list-disc list-inside text-sm text-gray-600 mb-2">
+                  {match.matchReasons.map((reason, i) => (
+                    <li key={i}>{reason}</li>
+                  ))}
+                </ul>
+                <div className="font-semibold text-gray-700 mb-1">
+                  Score Breakdown
+                </div>
+                <ul className="list-disc list-inside text-xs text-gray-500">
+                  <li>Budget: {match.scoreBreakdown.budget}</li>
+                  <li>Lifestyle: {match.scoreBreakdown.lifestyle}</li>
+                  <li>Priorities: {match.scoreBreakdown.priorities}</li>
+                  <li>Commute: {match.scoreBreakdown.commute}</li>
+                  <li>Safety: {match.scoreBreakdown.safety}</li>
+                  <li>Walkability: {match.scoreBreakdown.walkability}</li>
+                  <li>Amenities: {match.scoreBreakdown.amenities}</li>
+                </ul>
               </div>
 
               {/* Match Reasons */}

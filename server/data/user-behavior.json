@@ -1,1 +1,174 @@
-[]
+[
+  {
+    "timestamp": "2025-07-09T10:46:06.597Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [
+        "fitness"
+      ],
+      "priorities": [
+        "walkability",
+        "schools",
+        "amenities"
+      ]
+    },
+    "resultCount": 5,
+    "sessionDuration": 5
+  },
+  {
+    "timestamp": "2025-07-09T10:46:15.449Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [
+        "fitness"
+      ],
+      "priorities": []
+    },
+    "resultCount": 5,
+    "sessionDuration": 1
+  },
+  {
+    "timestamp": "2025-07-09T10:46:18.578Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [],
+      "priorities": []
+    },
+    "resultCount": 5,
+    "sessionDuration": 0
+  },
+  {
+    "timestamp": "2025-07-09T10:46:19.419Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [],
+      "priorities": []
+    },
+    "resultCount": 5,
+    "sessionDuration": 1
+  },
+  {
+    "timestamp": "2025-07-09T10:46:23.010Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [],
+      "priorities": [
+        "commute"
+      ]
+    },
+    "resultCount": 5,
+    "sessionDuration": 0
+  },
+  {
+    "timestamp": "2025-07-09T10:46:23.837Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [],
+      "priorities": [
+        "commute"
+      ]
+    },
+    "resultCount": 5,
+    "sessionDuration": 1
+  },
+  {
+    "timestamp": "2025-07-09T10:46:32.305Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [
+        "quiet"
+      ],
+      "priorities": []
+    },
+    "resultCount": 5,
+    "sessionDuration": 1
+  },
+  {
+    "timestamp": "2025-07-09T10:46:37.873Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [
+        "quiet"
+      ],
+      "priorities": [
+        "walkability"
+      ]
+    },
+    "resultCount": 5,
+    "sessionDuration": 0
+  },
+  {
+    "timestamp": "2025-07-09T10:48:21.952Z",
+    "preferences": {
+      "maxCommute": [
+        30
+      ],
+      "budgetRange": [
+        3000
+      ],
+      "lifestyle": [
+        "family"
+      ],
+      "priorities": [
+        "affordability"
+      ]
+    },
+    "resultCount": 10,
+    "sessionDuration": 1
+  },
+  {
+    "timestamp": "2025-07-09T10:49:03.943Z",
+    "preferences": {
+      "maxCommute": [
+        20
+      ],
+      "budgetRange": [
+        1250
+      ],
+      "lifestyle": [],
+      "priorities": []
+    },
+    "resultCount": 10,
+    "sessionDuration": 0
+  }
+]
