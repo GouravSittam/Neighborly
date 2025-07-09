@@ -38,36 +38,19 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-
-interface ResearchData {
-  userBehavior: {
-    totalSearches: number;
-    averagePreferences: any;
-    mostPopularFeatures: string[];
-    searchPatterns: any[];
-    conversionRate: number;
-  };
-  algorithmPerformance: {
-    averageResponseTime: number;
-    accuracyScore: number;
-    userSatisfaction: number;
-    matchDistribution: Record<string, number>;
-    algorithmVersion: string;
-  };
-  dataQuality: {
-    dataCompleteness: number;
-    dataAccuracy: number;
-    lastUpdated: Date;
-    sourceReliability: number;
-    missingFields: string[];
-  };
-  marketTrends: {
-    rentTrends: any[];
-    neighborhoodPopularity: any[];
-    featureDemand: any[];
-    seasonalPatterns: any[];
-  };
-}
+import type {
+  ResearchData,
+  UserBehaviorMetrics,
+  SearchPattern,
+  AlgorithmMetrics,
+  DataQualityMetrics,
+  MarketTrends,
+  RentTrend,
+  NeighborhoodPopularity,
+  FeatureDemand,
+  SeasonalPattern,
+  UserPreferences,
+} from "../../../server/src/types";
 
 interface ResearchSectionProps {
   refreshKey?: number;
