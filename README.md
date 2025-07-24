@@ -13,9 +13,6 @@
     <img src="https://img.shields.io/github/stars/GouravSittam/Neighborly?style=social" alt="GitHub stars">
   </a>
 </p>
-
----
-
 ## ✨ Overview
 
 Neighborly is a modern, data-driven web app that helps you find neighborhoods that genuinely fit your lifestyle, values, and priorities. Whether you're seeking an arts district, luxury waterfront, city nightlife, or peaceful suburbs, Neighborly's smart algorithm personalizes the search for your next home base.
