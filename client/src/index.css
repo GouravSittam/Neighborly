@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Font Faces ─────────────────────────────────── */
+@font-face {
+  font-family: "Anthropic Sans";
+  src:
+    url("/fonts/AnthropicSans-Bold.woff2") format("woff2"),
+    url("/fonts/AnthropicSans-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anthropic Sans";
+  src:
+    url("/fonts/AnthropicSans-Regular.woff2") format("woff2"),
+    url("/fonts/AnthropicSans-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anthropic Serif";
+  src:
+    url("/fonts/AnthropicSerif-Regular.woff2") format("woff2"),
+    url("/fonts/AnthropicSerif-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -9,6 +40,9 @@ html {
 /* Custom design system for Neighborly */
 @layer base {
   :root {
+    --font-serif: "Anthropic Serif", Georgia, "Times New Roman", serif;
+    --font-sans: "Anthropic Sans", Arial, Helvetica, sans-serif;
+
     --background: 210 20% 99%;
     --foreground: 222.2 84% 4.9%;
 
@@ -116,12 +150,45 @@ html {
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: var(--font-serif);
+    font-weight: 400;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+
+  /* UI chrome: keep navigation/forms/buttons in Sans everywhere */
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  nav,
+  [role="button"],
+  [data-radix-collection-item],
+  [data-slot="tabs-list"],
+  [data-slot="tabs-trigger"] {
+    font-family: var(--font-sans);
+  }
+
+  /* Long-form copy remains Serif by default */
+  p,
+  blockquote,
+  figcaption {
+    font-family: var(--font-serif);
   }
 
   /* Smooth theme transitions for core elements */

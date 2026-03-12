@@ -18,6 +18,12 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Anthropic Sans"', "Arial", "Helvetica", "sans-serif"],
+        serif: ['"Anthropic Serif"', "Georgia", '"Times New Roman"', "serif"],
+        body: ['"Anthropic Serif"', "Georgia", '"Times New Roman"', "serif"],
+        heading: ['"Anthropic Sans"', "Arial", "Helvetica", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

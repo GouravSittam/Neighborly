@@ -148,7 +148,7 @@ const Navbar1 = ({
   themeToggle,
 }: Navbar1Props) => {
   return (
-    <section className="sticky top-0 z-40 py-3 glass">
+    <section className="sticky top-0 z-40 py-3 glass font-sans">
       <div className="container px-2 sm:px-4 md:px-6 lg:px-8 mx-auto">
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-4 md:gap-6">

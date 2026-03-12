@@ -31,7 +31,7 @@ export function Footer({
   copyright,
 }: FooterProps) {
   return (
-    <footer className="border-t border-border/50 pb-6 pt-12 sm:pt-16 lg:pb-8 lg:pt-24 bg-card/50">
+    <footer className="border-t border-border/50 pb-6 pt-12 sm:pt-16 lg:pb-8 lg:pt-24 bg-card/50 font-sans">
       <div className="px-2 sm:px-4 md:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-0">
           <a

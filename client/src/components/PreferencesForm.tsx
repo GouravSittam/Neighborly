@@ -205,11 +205,11 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
               {/* Commute Preference */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <label className="text-sm font-sans font-medium text-foreground flex items-center gap-2">
                     <Clock className="h-4 w-4 text-muted-foreground" />
                     Maximum Commute Time
                   </label>
-                  <span className="text-2xl font-bold text-primary tabular-nums">
+                  <span className="text-2xl font-sans font-bold text-primary tabular-nums">
                     {preferences.maxCommute[0]}
                     <span className="text-sm font-normal text-muted-foreground ml-1">
                       min
@@ -235,11 +235,11 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
               {/* Budget Range */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <label className="text-sm font-sans font-medium text-foreground flex items-center gap-2">
                     <Wallet className="h-4 w-4 text-muted-foreground" />
                     Monthly Budget
                   </label>
-                  <span className="text-2xl font-bold text-accent tabular-nums">
+                  <span className="text-2xl font-sans font-bold text-accent tabular-nums">
                     ${preferences.budgetRange[0].toLocaleString()}
                     <span className="text-sm font-normal text-muted-foreground ml-1">
                       /mo
@@ -264,7 +264,7 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
 
               {/* Lifestyle Interests — selectable cards */}
               <div className="space-y-3">
-                <label className="text-sm font-medium text-foreground">
+                <label className="text-sm font-sans font-medium text-foreground">
                   Lifestyle Interests
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -282,7 +282,7 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
                         }`}
                       >
                         <span className="text-2xl">{option.icon}</span>
-                        <span className="text-sm font-medium text-foreground">
+                        <span className="text-sm font-sans font-medium text-foreground">
                           {option.label}
                         </span>
                       </button>
@@ -293,7 +293,7 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
 
               {/* Priorities — selectable cards */}
               <div className="space-y-3">
-                <label className="text-sm font-medium text-foreground">
+                <label className="text-sm font-sans font-medium text-foreground">
                   Top Priorities
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -315,7 +315,7 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
                         }`}
                       >
                         <span className="text-2xl">{priority.icon}</span>
-                        <span className="text-sm font-medium text-foreground">
+                        <span className="text-sm font-sans font-medium text-foreground">
                           {priority.label}
                         </span>
                       </button>
