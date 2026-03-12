@@ -133,10 +133,10 @@ export const Header = () => {
     <>
       <Navbar1 {...navbarData} />
       {showLogin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className="relative w-full max-w-6xl">
             <button
-              className="absolute top-2 right-2 z-10 bg-white/80 rounded-full p-2"
+              className="absolute top-2 right-2 z-10 bg-card/90 backdrop-blur-sm rounded-full p-2 text-foreground hover:bg-muted transition-colors"
               onClick={closeLoginModal}
               aria-label="Close sign in modal"
             >
@@ -151,10 +151,10 @@ export const Header = () => {
       )}
       {/* TODO: Implement signup modal with global auth context */}
       {showSignup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className="relative w-full max-w-2xl">
             <button
-              className="absolute top-2 right-2 z-10 bg-white/80 rounded-full p-2"
+              className="absolute top-2 right-2 z-10 bg-card/90 backdrop-blur-sm rounded-full p-2 text-foreground hover:bg-muted transition-colors"
               onClick={closeSignupModal}
               aria-label="Close sign up modal"
             >

@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Custom design system for Neighborly */
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210 20% 99%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -17,20 +21,20 @@
     --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 214 32% 96%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 214 32% 96%;
+    --muted-foreground: 215.4 16.3% 43%;
 
-    --accent: 142.1 76.2% 36.3%;
+    --accent: 142.1 70% 42%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 88%;
     --ring: 217.2 91.2% 59.8%;
 
     --radius: 0.75rem;
@@ -46,48 +50,58 @@
 
     --brand: 27 96% 61%;
     --brand-foreground: 31 97% 72%;
+
+    --success: 142 70% 42%;
+    --success-foreground: 142 70% 18%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 20%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 224 71% 6%;
+    --card-foreground: 213 31% 91%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 224 71% 6%;
+    --popover-foreground: 213 31% 91%;
 
     --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 222 47% 11%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20.2% 65%;
 
-    --accent: 142.1 76.2% 36.3%;
+    --accent: 142.1 70% 45%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
     --ring: 217.2 91.2% 59.8%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 224 71% 4%;
+    --sidebar-foreground: 213 31% 91%;
+    --sidebar-primary: 217.2 91.2% 59.8%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-accent: 223 47% 11%;
+    --sidebar-accent-foreground: 213 31% 91%;
+    --sidebar-border: 216 34% 17%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
     --brand: 31 97% 72%;
     --brand-foreground: 27 96% 61%;
+
+    --success: 142 70% 45%;
+    --success-foreground: 142 70% 82%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 38 92% 85%;
   }
 }
 
@@ -96,9 +110,25 @@
     @apply border-border;
   }
 
+  html {
+    transition: color-scheme 0.3s;
+  }
+
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  /* Smooth theme transitions for core elements */
+  .dark body,
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -148,4 +178,90 @@
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+/* Stagger animation for grid cards */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid > [style*="animation-delay"] {
+  animation: cardEnter 0.4s ease-out;
+}
+
+/* Theme-aware section backgrounds */
+.section-alt {
+  @apply bg-muted/40;
+}
+.dark .section-alt {
+  background: hsl(224 71% 6% / 0.6);
+}
+
+/* Smooth card theme transition */
+@layer base {
+  [class*="card"],
+  [class*="Card"],
+  [class*="badge"],
+  [class*="Badge"],
+  button,
+  input,
+  select,
+  textarea,
+  nav,
+  header,
+  section {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      color 0.2s ease;
+  }
+}
+
+/* Dark mode card glow/lift */
+.dark .card-elevated {
+  box-shadow:
+    0 0 0 1px hsl(216 34% 17%),
+    0 4px 24px -4px rgba(0, 0, 0, 0.35);
+}
+
+/* Light mode card soft shadow */
+.card-elevated {
+  box-shadow:
+    0 0 0 1px hsl(214.3 31.8% 91.4% / 0.5),
+    0 4px 16px -4px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Glassmorphism utility */
+.glass {
+  @apply backdrop-blur-md;
+  background: hsl(var(--card) / 0.75);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+.dark .glass {
+  background: hsl(var(--card) / 0.6);
+  border: 1px solid hsl(var(--border) / 0.3);
+}
+
+/* Improved scrollbar for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: hsl(224 71% 4%);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(216 34% 22%);
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(216 34% 30%);
 }

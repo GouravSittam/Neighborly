@@ -71,9 +71,7 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
   const fetchResearchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        "http://localhost:4000/api/research/overview"
-      );
+      const response = await fetch("/api/research/overview");
       if (!response.ok) throw new Error("Failed to fetch research data");
       const data = await response.json();
       setResearchData(data.data);
@@ -86,11 +84,25 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
 
   if (loading) {
     return (
-      <section id="research" className="py-16 bg-gray-50">
+      <section id="research" className="py-20 md:py-28">
         <div className="container mx-auto px-4">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading research insights...</p>
+          <div className="text-center mb-10">
+            <div className="h-8 w-64 bg-muted rounded-lg mx-auto mb-4 animate-pulse" />
+            <div className="h-5 w-96 bg-muted rounded-lg mx-auto animate-pulse" />
+          </div>
+          <div className="h-12 w-full max-w-lg mx-auto bg-muted rounded-lg mb-8 animate-pulse" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <Card key={i} className="animate-pulse">
+                <CardHeader className="pb-2">
+                  <div className="h-4 w-24 bg-muted rounded" />
+                </CardHeader>
+                <CardContent>
+                  <div className="h-8 w-20 bg-muted rounded mb-2" />
+                  <div className="h-3 w-32 bg-muted rounded" />
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -99,14 +111,16 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
 
   if (error || !researchData) {
     return (
-      <section id="research" className="py-16 bg-gray-50">
+      <section id="research" className="py-20 md:py-28">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center">
+              <AlertTriangle className="h-8 w-8 text-destructive" />
+            </div>
+            <h2 className="text-2xl font-bold text-foreground mb-2">
               Research Data Unavailable
             </h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-muted-foreground mb-6">
               {error || "Unable to load research insights"}
             </p>
             <Button onClick={fetchResearchData} variant="outline">
@@ -118,44 +132,59 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
     );
   }
 
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
+  const COLORS = [
+    "hsl(217, 91%, 60%)",
+    "hsl(142, 70%, 45%)",
+    "hsl(38, 92%, 50%)",
+    "hsl(0, 84%, 60%)",
+    "hsl(262, 80%, 60%)",
+  ];
 
   return (
-    <section id="research" className="py-16 bg-gray-50">
+    <section id="research" className="py-20 md:py-28">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Research & Analytics Insights
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            Research & Analytics
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Comprehensive analysis of user behavior, algorithm performance, and
             market trends to drive data-informed decisions.
           </p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
-            <TabsTrigger value="overview" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 mb-8">
+            <TabsTrigger
+              value="overview"
+              className="flex items-center gap-1.5 text-xs sm:text-sm"
+            >
               <BarChart3 className="h-4 w-4" />
-              Overview
+              <span className="hidden sm:inline">Overview</span>
+              <span className="sm:hidden">Stats</span>
             </TabsTrigger>
             <TabsTrigger
               value="user-behavior"
-              className="flex items-center gap-2"
+              className="flex items-center gap-1.5 text-xs sm:text-sm"
             >
               <Users className="h-4 w-4" />
-              User Behavior
+              <span className="hidden sm:inline">User Behavior</span>
+              <span className="sm:hidden">Users</span>
             </TabsTrigger>
-            <TabsTrigger value="algorithm" className="flex items-center gap-2">
+            <TabsTrigger
+              value="algorithm"
+              className="flex items-center gap-1.5 text-xs sm:text-sm"
+            >
               <Zap className="h-4 w-4" />
               Algorithm
             </TabsTrigger>
             <TabsTrigger
               value="market-trends"
-              className="flex items-center gap-2"
+              className="flex items-center gap-1.5 text-xs sm:text-sm"
             >
               <TrendingUp className="h-4 w-4" />
-              Market Trends
+              <span className="hidden sm:inline">Market Trends</span>
+              <span className="sm:hidden">Market</span>
             </TabsTrigger>
           </TabsList>
 
@@ -250,7 +279,7 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                         >
                           {feature}
                         </Badge>
-                      )
+                      ),
                     )}
                   </div>
                 </CardContent>
@@ -267,9 +296,9 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Completeness</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                      <div className="w-24 bg-muted rounded-full h-2">
                         <div
-                          className="bg-blue-600 h-2 rounded-full"
+                          className="bg-primary h-2 rounded-full"
                           style={{
                             width: `${
                               researchData.dataQuality.dataCompleteness || 0
@@ -285,9 +314,9 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Accuracy</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                      <div className="w-24 bg-muted rounded-full h-2">
                         <div
-                          className="bg-green-600 h-2 rounded-full"
+                          className="bg-accent h-2 rounded-full"
                           style={{
                             width: `${
                               researchData.dataQuality.dataAccuracy || 0
@@ -303,9 +332,9 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Source Reliability</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                      <div className="w-24 bg-muted rounded-full h-2">
                         <div
-                          className="bg-purple-600 h-2 rounded-full"
+                          className="bg-purple-500 dark:bg-purple-400 h-2 rounded-full"
                           style={{
                             width: `${
                               researchData.dataQuality.sourceReliability || 0
@@ -437,7 +466,7 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                             100 -
                               researchData.algorithmPerformance
                                 .averageResponseTime /
-                                10
+                                10,
                           ),
                           color: "#FFBB28",
                         },
@@ -466,7 +495,7 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                       <Pie
                         data={Object.entries(
                           researchData.algorithmPerformance.matchDistribution ||
-                            {}
+                            {},
                         ).map(([key, value], index) => ({
                           name: `${key} results`,
                           value,
@@ -484,7 +513,7 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                       >
                         {Object.entries(
                           researchData.algorithmPerformance.matchDistribution ||
-                            {}
+                            {},
                         ).map((entry, index) => (
                           <Cell
                             key={`cell-${index}`}
@@ -552,8 +581,8 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                                 feature.trend === "increasing"
                                   ? "default"
                                   : feature.trend === "decreasing"
-                                  ? "destructive"
-                                  : "secondary"
+                                    ? "destructive"
+                                    : "secondary"
                               }
                             >
                               {feature.trend}
@@ -563,7 +592,7 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
                             {feature.demandScore}
                           </span>
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 </CardContent>

@@ -54,7 +54,7 @@ export function HeroSection({
       className={cn(
         "bg-background text-foreground",
         "py-12 sm:py-24 md:py-32 px-4",
-        "fade-bottom overflow-hidden pb-0"
+        "fade-bottom overflow-hidden pb-0",
       )}
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-12 pt-16 sm:gap-24">
@@ -79,7 +79,6 @@ export function HeroSection({
           <p className="text-md relative z-10 max-w-[550px] animate-appear font-medium text-muted-foreground opacity-0 delay-100 sm:text-xl">
             {description}
           </p>
-
 
           {/* Actions */}
           <div className="relative z-10 flex animate-appear justify-center gap-4 opacity-0 delay-300">
@@ -109,6 +108,10 @@ export function HeroSection({
                     playsInline
                     className="w-full h-auto"
                     aria-label={video.alt}
+                    poster="/neighborhood-fallback.jpg"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
                   />
                 ) : (
                   <img

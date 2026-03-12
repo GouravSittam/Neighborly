@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   TrendingUp,
@@ -53,11 +53,11 @@ const MetricCard: React.FC<MetricCardProps> = ({
   const getTrendColor = () => {
     switch (trend) {
       case "up":
-        return "text-green-500";
+        return "text-green-500 dark:text-green-400";
       case "down":
-        return "text-red-500";
+        return "text-red-500 dark:text-red-400";
       default:
-        return "text-gray-500";
+        return "text-muted-foreground";
     }
   };
 
@@ -111,7 +111,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
 const ShiningText: React.FC<{ text: string }> = ({ text }) => {
   return (
     <motion.span
-      className="bg-[linear-gradient(110deg,#404040,35%,#fff,50%,#404040,75%,#404040)] bg-[length:200%_100%] bg-clip-text text-transparent"
+      className="bg-[linear-gradient(110deg,hsl(var(--foreground)),35%,hsl(var(--primary)),50%,hsl(var(--foreground)),75%,hsl(var(--foreground)))] bg-[length:200%_100%] bg-clip-text text-transparent"
       initial={{ backgroundPosition: "200% 0" }}
       animate={{ backgroundPosition: "-200% 0" }}
       transition={{
@@ -135,15 +135,15 @@ const InsightCard: React.FC<{ insight: InsightData; index: number }> = ({
   const getCategoryColor = () => {
     switch (insight.category) {
       case "performance":
-        return "from-blue-500/20 to-blue-600/20 border-blue-500/30";
+        return "from-blue-500/10 to-blue-600/10 border-blue-500/20 dark:from-blue-500/15 dark:to-blue-600/15 dark:border-blue-400/20";
       case "engagement":
-        return "from-green-500/20 to-green-600/20 border-green-500/30";
+        return "from-green-500/10 to-green-600/10 border-green-500/20 dark:from-green-500/15 dark:to-green-600/15 dark:border-green-400/20";
       case "revenue":
-        return "from-purple-500/20 to-purple-600/20 border-purple-500/30";
+        return "from-purple-500/10 to-purple-600/10 border-purple-500/20 dark:from-purple-500/15 dark:to-purple-600/15 dark:border-purple-400/20";
       case "growth":
-        return "from-orange-500/20 to-orange-600/20 border-orange-500/30";
+        return "from-orange-500/10 to-orange-600/10 border-orange-500/20 dark:from-orange-500/15 dark:to-orange-600/15 dark:border-orange-400/20";
       default:
-        return "from-gray-500/20 to-gray-600/20 border-gray-500/30";
+        return "from-muted to-muted border-border";
     }
   };
 
@@ -193,10 +193,10 @@ const InsightCard: React.FC<{ insight: InsightData; index: number }> = ({
               <div
                 className={`flex items-center space-x-1 ${
                   insight.trend === "up"
-                    ? "text-green-500"
+                    ? "text-green-500 dark:text-green-400"
                     : insight.trend === "down"
-                    ? "text-red-500"
-                    : "text-gray-500"
+                      ? "text-red-500 dark:text-red-400"
+                      : "text-muted-foreground"
                 }`}
               >
                 {insight.trend === "up" && <TrendingUp className="h-4 w-4" />}
@@ -300,15 +300,7 @@ const InsightCard: React.FC<{ insight: InsightData; index: number }> = ({
 };
 
 const WonderfulInsightSection: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [showMetrics, setShowMetrics] = useState(true);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   const insights: InsightData[] = useMemo(
     () => [
@@ -389,7 +381,7 @@ const WonderfulInsightSection: React.FC = () => {
           "Showcase user testimonials and encourage sharing of success stories to build trust and attract new users.",
       },
     ],
-    []
+    [],
   );
 
   const metrics = [
@@ -433,7 +425,7 @@ const WonderfulInsightSection: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="flex items-center justify-center space-x-2"
         >
-          <Brain className="h-6 w-6 text-primary" />
+          <Brain className="h-5 w-5 text-primary" />
           <span className="text-sm font-medium text-primary">
             Live Analytics
           </span>
@@ -442,7 +434,7 @@ const WonderfulInsightSection: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl md:text-5xl font-bold"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold"
         >
           Neighborhood Matching <ShiningText text="Insights" />
         </motion.h2>
@@ -452,22 +444,9 @@ const WonderfulInsightSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg text-muted-foreground max-w-2xl mx-auto"
         >
-          Real-time analytics and AI-powered insights to help you understand
-          neighborhood trends and make informed decisions.
+          AI-powered analytics to help you understand neighborhood trends and
+          make informed decisions.
         </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex items-center justify-center space-x-4 text-sm text-muted-foreground"
-        >
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span>Live Data</span>
-          </div>
-          <span>•</span>
-          <span>Updated {currentTime.toLocaleTimeString()}</span>
-        </motion.div>
       </div>
 
       {/* Metrics Grid */}

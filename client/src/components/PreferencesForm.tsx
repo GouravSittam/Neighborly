@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -8,22 +8,18 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import {
   Calculator,
   MapPin,
   DollarSign,
-  Users,
   Car,
   Coffee,
+  Loader2,
+  Search,
+  Clock,
+  Wallet,
+  Sparkles,
 } from "lucide-react";
 import { NeighborhoodGrid } from "./NeighborhoodGrid";
 import InsightSection from "@/components/InsightSection";
@@ -88,36 +84,34 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sessionStartTime] = useState(Date.now());
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const lifestyleOptions = [
-    { id: "nightlife", label: "Nightlife & Entertainment", icon: "🌃" },
+    { id: "nightlife", label: "Nightlife", icon: "🌃" },
     { id: "family", label: "Family-Friendly", icon: "👨‍👩‍👧‍👦" },
-    { id: "fitness", label: "Fitness & Outdoor", icon: "🏃‍♂️" },
+    { id: "fitness", label: "Fitness & Outdoor", icon: "💪" },
     { id: "culture", label: "Arts & Culture", icon: "🎨" },
     { id: "food", label: "Food Scene", icon: "🍽️" },
     { id: "quiet", label: "Peaceful & Quiet", icon: "🌿" },
   ];
 
   const priorities = [
-    { id: "commute", label: "Short Commute", icon: Car },
-    { id: "walkability", label: "Walkability", icon: MapPin },
-    { id: "affordability", label: "Affordability", icon: DollarSign },
+    { id: "commute", label: "Short Commute", icon: "🚗" },
+    { id: "walkability", label: "Walkability", icon: "🚶" },
+    { id: "affordability", label: "Affordability", icon: "💰" },
     { id: "safety", label: "Safety Rating", icon: "🛡️" },
     { id: "schools", label: "School Quality", icon: "🎓" },
-    { id: "amenities", label: "Local Amenities", icon: Coffee },
+    { id: "amenities", label: "Local Amenities", icon: "🏪" },
   ];
 
-  // Handle checkbox changes for lifestyle and priorities
-  const handleCheckboxChange = (
-    type: "lifestyle" | "priorities",
-    id: string,
-    checked: boolean
-  ) => {
+  const toggleSelection = (type: "lifestyle" | "priorities", id: string) => {
     setPreferences((prev) => {
       const arr = prev[type] as string[];
       return {
         ...prev,
-        [type]: checked ? [...arr, id] : arr.filter((item) => item !== id),
+        [type]: arr.includes(id)
+          ? arr.filter((item) => item !== id)
+          : [...arr, id],
       };
     });
   };
@@ -132,7 +126,7 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
     const sessionDuration = Date.now() - sessionStartTime;
 
     try {
-      const res = await fetch("http://localhost:4000/api/match?limit=15", {
+      const res = await fetch("/api/match?limit=15", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(preferences),
@@ -141,10 +135,18 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
       const data = await res.json();
       setMatches(data.data?.matches || []);
 
+      // Auto-scroll to results
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+
       // Track analytics
       if (data.data?.matches) {
         try {
-          await fetch("http://localhost:4000/api/research/track", {
+          await fetch("/api/research/track", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -171,37 +173,49 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
   };
 
   return (
-    <section id="matching" className="py-16">
-      <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+    <section id="matching">
+      <div className="max-w-4xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-10">
+          <Badge variant="secondary" className="mb-4">
+            <Sparkles className="h-3 w-3 mr-1" />
+            Smart Matching
+          </Badge>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Tell Us About Your Ideal Lifestyle
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Our matching algorithm uses your preferences to find neighborhoods
-            that align with your needs and goals.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Our algorithm analyzes 100+ data points to find neighborhoods that
+            genuinely match your lifestyle and priorities.
           </p>
         </div>
+
         <form onSubmit={handleSubmit}>
-          <Card className="max-w-4xl mx-auto">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Calculator className="h-6 w-6 text-blue-600" />
-                <span>Lifestyle Preferences</span>
+          <Card className="border-border/50 card-elevated">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-xl">
+                <Calculator className="h-5 w-5 text-primary" />
+                Lifestyle Preferences
               </CardTitle>
               <CardDescription>
                 Help us understand what matters most to you in a neighborhood
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-8">
+            <CardContent className="space-y-8 pt-4">
               {/* Commute Preference */}
               <div className="space-y-4">
-                <label className="text-sm md:text-base font-medium text-gray-700">
-                  Maximum Commute Time:{" "}
-                  <span className="text-blue-600 font-semibold">
-                    {preferences.maxCommute[0]} minutes
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium text-foreground flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-muted-foreground" />
+                    Maximum Commute Time
+                  </label>
+                  <span className="text-2xl font-bold text-primary tabular-nums">
+                    {preferences.maxCommute[0]}
+                    <span className="text-sm font-normal text-muted-foreground ml-1">
+                      min
+                    </span>
                   </span>
-                </label>
+                </div>
                 <Slider
                   value={preferences.maxCommute}
                   onValueChange={(value) =>
@@ -212,15 +226,26 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
                   step={5}
                   className="w-full"
                 />
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>10 min</span>
+                  <span>60 min</span>
+                </div>
               </div>
+
               {/* Budget Range */}
               <div className="space-y-4">
-                <label className="text-sm md:text-base font-medium text-gray-700">
-                  Monthly Budget:{" "}
-                  <span className="text-green-600 font-semibold">
-                    ${preferences.budgetRange[0]}
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium text-foreground flex items-center gap-2">
+                    <Wallet className="h-4 w-4 text-muted-foreground" />
+                    Monthly Budget
+                  </label>
+                  <span className="text-2xl font-bold text-accent tabular-nums">
+                    ${preferences.budgetRange[0].toLocaleString()}
+                    <span className="text-sm font-normal text-muted-foreground ml-1">
+                      /mo
+                    </span>
                   </span>
-                </label>
+                </div>
                 <Slider
                   value={preferences.budgetRange}
                   onValueChange={(value) =>
@@ -231,98 +256,108 @@ export const PreferencesForm: React.FC<PreferencesFormProps> = ({
                   step={250}
                   className="w-full"
                 />
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>$1,000</span>
+                  <span>$8,000</span>
+                </div>
               </div>
-              {/* Lifestyle Preferences */}
-              <div className="space-y-4">
-                <label className="text-sm md:text-base font-medium text-gray-700">
+
+              {/* Lifestyle Interests — selectable cards */}
+              <div className="space-y-3">
+                <label className="text-sm font-medium text-foreground">
                   Lifestyle Interests
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {lifestyleOptions.map((option) => (
-                    <div
-                      key={option.id}
-                      className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                    >
-                      <Checkbox
-                        id={option.id}
-                        checked={preferences.lifestyle.includes(option.id)}
-                        onCheckedChange={(checked) =>
-                          handleCheckboxChange(
-                            "lifestyle",
-                            option.id,
-                            !!checked
-                          )
-                        }
-                      />
-                      <label
-                        htmlFor={option.id}
-                        className="text-sm md:text-base cursor-pointer flex items-center space-x-2"
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {lifestyleOptions.map((option) => {
+                    const selected = preferences.lifestyle.includes(option.id);
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        onClick={() => toggleSelection("lifestyle", option.id)}
+                        className={`flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
+                          selected
+                            ? "border-primary bg-primary/10 dark:bg-primary/15 shadow-sm ring-1 ring-primary/20"
+                            : "border-border hover:border-primary/40 hover:bg-muted/50"
+                        }`}
                       >
-                        <span className="text-lg">{option.icon}</span>
-                        <span>{option.label}</span>
-                      </label>
-                    </div>
-                  ))}
+                        <span className="text-2xl">{option.icon}</span>
+                        <span className="text-sm font-medium text-foreground">
+                          {option.label}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
-              {/* Priorities */}
-              <div className="space-y-4">
-                <label className="text-sm md:text-base font-medium text-gray-700">
+
+              {/* Priorities — selectable cards */}
+              <div className="space-y-3">
+                <label className="text-sm font-medium text-foreground">
                   Top Priorities
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {priorities.map((priority) => (
-                    <div
-                      key={priority.id}
-                      className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                    >
-                      <Checkbox
-                        id={priority.id}
-                        checked={preferences.priorities.includes(priority.id)}
-                        onCheckedChange={(checked) =>
-                          handleCheckboxChange(
-                            "priorities",
-                            priority.id,
-                            !!checked
-                          )
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {priorities.map((priority) => {
+                    const selected = preferences.priorities.includes(
+                      priority.id,
+                    );
+                    return (
+                      <button
+                        key={priority.id}
+                        type="button"
+                        onClick={() =>
+                          toggleSelection("priorities", priority.id)
                         }
-                      />
-                      <label
-                        htmlFor={priority.id}
-                        className="text-sm md:text-base cursor-pointer flex items-center space-x-2"
+                        className={`flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
+                          selected
+                            ? "border-primary bg-primary/10 dark:bg-primary/15 shadow-sm ring-1 ring-primary/20"
+                            : "border-border hover:border-primary/40 hover:bg-muted/50"
+                        }`}
                       >
-                        {typeof priority.icon === "string" ? (
-                          <span className="text-lg">{priority.icon}</span>
-                        ) : (
-                          <priority.icon className="h-4 w-4 text-blue-600" />
-                        )}
-                        <span>{priority.label}</span>
-                      </label>
-                    </div>
-                  ))}
+                        <span className="text-2xl">{priority.icon}</span>
+                        <span className="text-sm font-medium text-foreground">
+                          {priority.label}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
+
+              {/* Submit */}
               <Button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg"
+                size="lg"
+                className="w-full text-lg h-14"
                 disabled={loading}
               >
-                {loading
-                  ? "Finding Matches..."
-                  : "Find My Neighborhood Matches"}
+                {loading ? (
+                  <>
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                    Finding Your Matches...
+                  </>
+                ) : (
+                  <>
+                    <Search className="h-5 w-5 mr-2" />
+                    Find My Neighborhood Matches
+                  </>
+                )}
               </Button>
               {error && (
-                <div className="text-red-600 text-center mt-4">{error}</div>
+                <div className="text-destructive text-center text-sm mt-2 p-3 bg-destructive/10 rounded-lg">
+                  {error}
+                </div>
               )}
             </CardContent>
           </Card>
         </form>
+
         {/* Display matches */}
         {matches.length > 0 && (
-          <section id="discover" className="max-w-6xl mx-auto mt-12">
+          <div ref={resultsRef} className="mt-16">
             <NeighborhoodGrid matches={matches} />
             <InsightSection />
-          </section>
+          </div>
         )}
       </div>
     </section>

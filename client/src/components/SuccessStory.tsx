@@ -148,8 +148,8 @@ const SuccessStory = () => {
             <span className="text-primary"> Real Customers</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Discover how industry leaders transformed their businesses and
-            achieved extraordinary results with our platform.
+            See how real people found their perfect neighborhoods and
+            transformed their daily lives with Neighborly.
           </p>
         </div>
 
@@ -279,7 +279,7 @@ const SuccessStory = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.5 }}
-                className="bg-card border border-border rounded-2xl p-8 shadow-lg"
+                className="bg-card border border-border rounded-2xl p-8 card-elevated"
               >
                 <h4 className="text-2xl font-bold text-foreground mb-8 text-center">
                   Key Results Achieved
