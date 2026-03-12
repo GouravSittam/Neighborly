@@ -1,15 +1,22 @@
-import React, { useState } from "react";
-import { Twitter, Github, Linkedin } from "lucide-react";
+import React, { useState, Suspense, lazy } from "react";
+import { Twitter, Github, Linkedin, Loader2 } from "lucide-react";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import { PreferencesForm } from "../components/PreferencesForm";
-import { ResearchSection } from "../components/ResearchSection";
-import { Gallery4 } from "../components/ui/gallery4";
-import { Footer } from "../components/ui/footer";
-import { Component as FAQSection } from "@/components/ui/faq-section";
-import SuccessStory from "@/components/SuccessStory";
-import InsightSection from "@/components/InsightSection";
 import { CommunityHighlights } from "@/components/CommunityHighlights";
+import { Footer } from "../components/ui/footer";
+
+const Gallery4 = lazy(() => import("../components/ui/gallery4").then(m => ({ default: m.Gallery4 })));
+const InsightSection = lazy(() => import("@/components/InsightSection"));
+const ResearchSection = lazy(() => import("../components/ResearchSection").then(m => ({ default: m.ResearchSection })));
+const SuccessStory = lazy(() => import("@/components/SuccessStory"));
+const FAQSection = lazy(() => import("@/components/ui/faq-section").then(m => ({ default: m.Component })));
+
+const FallbackLoader = () => (
+  <div className="flex items-center justify-center p-12">
+    <Loader2 className="w-8 h-8 animate-spin text-primary opacity-50" />
+  </div>
+);
 
 const Index = () => {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -40,28 +47,38 @@ const Index = () => {
         {/* Neighborhood Gallery */}
         <section id="discover" className="py-20 md:py-28 section-alt">
           <div className="container mx-auto px-4">
-            <Gallery4 />
+            <Suspense fallback={<FallbackLoader />}>
+              <Gallery4 />
+            </Suspense>
           </div>
         </section>
 
         {/* Insight Analytics */}
         <section id="insights" className="py-20 md:py-28">
-          <InsightSection />
+          <Suspense fallback={<FallbackLoader />}>
+            <InsightSection />
+          </Suspense>
         </section>
 
         {/* Research Analytics */}
         <section className="section-alt">
-          <ResearchSection refreshKey={refreshKey} />
+          <Suspense fallback={<FallbackLoader />}>
+            <ResearchSection refreshKey={refreshKey} />
+          </Suspense>
         </section>
 
         {/* Success Stories */}
         <section id="stories">
-          <SuccessStory />
+          <Suspense fallback={<FallbackLoader />}>
+            <SuccessStory />
+          </Suspense>
         </section>
 
         {/* FAQ */}
         <section id="faq" className="py-20 md:py-28 section-alt">
-          <FAQSection />
+          <Suspense fallback={<FallbackLoader />}>
+            <FAQSection />
+          </Suspense>
         </section>
       </main>
       <Footer
