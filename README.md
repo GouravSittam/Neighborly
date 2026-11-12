@@ -37,19 +37,29 @@ Neighborly is a modern, data-driven web app that helps you find neighborhoods th
 git clone https://github.com/GouravSittam/Neighborly.git
 cd Neighborly
 
-# 2. Install dependencies
-npm install
+# 2. Start the API (http://localhost:4000)
+cd server && npm install && npm run dev
 
-# 3. Start the development server
-npm run dev
+# 3. In a second terminal, start the web app (http://localhost:5173)
+cd client && npm install && npm run dev
 ```
+
+Requires Node.js 20.19+ (22 LTS recommended). The Vite dev server proxies `/api` to port 4000.
+
+**Production**
+
+| Where  | Command                          | Env vars                                                    |
+| ------ | -------------------------------- | ----------------------------------------------------------- |
+| server | `npm run build && npm start`     | `PORT`, `JWT_SECRET`, `CLIENT_ORIGIN` (comma-separated), `NODE_ENV=production` |
+| client | `npm run build` → `dist/`        | `VITE_API_URL` (API origin, if hosted separately)           |
 
 ---
 
 ## 🛠 Stack
 
-- **Frontend:** React, TypeScript
-- **Backend:** Node.js, Express (see `/server`)
+- **Frontend:** React 19, TypeScript 6, Vite 8 (Rolldown), Tailwind CSS v4, Motion, Radix UI, TanStack Query, Recharts 3, React Router
+- **Design:** OKLCH design tokens, dark/light themes (follows OS), Geist + Instrument Serif, reduced-motion aware
+- **Backend:** Node.js, Express 5, TypeScript, `tsx` for dev (see `/server`)
 - **Data Pipeline:** ETL scripts, public datasets, caching
 - **Testing:** Jest, Integration & Unit tests
 - **Deployment:** Vercel, Netlify, or any Node-friendly provider

@@ -1,53 +1,31 @@
-import React, { Component, type ReactNode } from "react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
 
-interface Props {
-  children: ReactNode;
-}
+export class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
+  state = { error: null as Error | null };
 
-interface State {
-  hasError: boolean;
-}
-
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false };
+  static getDerivedStateFromError(error: Error) {
+    return { error };
   }
 
-  static getDerivedStateFromError(): State {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error("ErrorBoundary caught:", error, info);
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error("Unhandled UI error:", error, info.componentStack);
   }
 
   render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen flex items-center justify-center p-8">
-          <div className="text-center max-w-md">
-            <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center">
-              <span className="text-2xl">⚠️</span>
-            </div>
-            <h1 className="text-2xl font-bold text-foreground mb-2">
-              Something went wrong
-            </h1>
-            <p className="text-muted-foreground mb-6">
-              An unexpected error occurred. Please refresh the page to try
-              again.
-            </p>
-            <button
-              onClick={() => window.location.reload()}
-              className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-            >
-              Refresh Page
-            </button>
-          </div>
+    if (!this.state.error) return this.props.children;
+    return (
+      <div className="grid min-h-dvh place-items-center px-4 text-center">
+        <div>
+          <h1 className="text-2xl font-semibold">Something went wrong.</h1>
+          <p className="mt-2 text-muted-foreground">{this.state.error.message}</p>
+          <button
+            onClick={() => location.reload()}
+            className="mt-6 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background"
+          >
+            Reload
+          </button>
         </div>
-      );
-    }
-
-    return this.props.children;
+      </div>
+    );
   }
 }

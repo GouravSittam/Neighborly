@@ -29,7 +29,20 @@ import {
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+const IS_PROD = process.env.NODE_ENV === "production";
 const JWT_SECRET = process.env.JWT_SECRET || "super-secret-key";
+if (IS_PROD && !process.env.JWT_SECRET) {
+  console.warn("[Server] JWT_SECRET is not set — using an insecure default.");
+}
+const CLIENT_ORIGINS = (process.env.CLIENT_ORIGIN || "http://localhost:5173")
+  .split(",")
+  .map((o) => o.trim());
+// Cross-site cookies (separate client/API domains) require SameSite=None + Secure.
+const COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: IS_PROD,
+  sameSite: IS_PROD ? ("none" as const) : ("lax" as const),
+};
 const users: User[] = [];
 let userIdCounter = 1;
 
@@ -43,7 +56,7 @@ app.use(helmet());
 app.use(compression());
 app.use(
   cors({
-    origin: "http://localhost:5173", // adjust as needed
+    origin: CLIENT_ORIGINS,
     credentials: true,
   })
 );
@@ -51,8 +64,10 @@ app.use(
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: "Too many requests from this IP, please try again later.",
+  limit: 300, // requests per IP per window
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: { success: false, error: "Too many requests, please try again later." },
 });
 app.use("/api/", limiter);
 
@@ -522,12 +537,7 @@ app.post("/api/login", async (req, res) => {
     JWT_SECRET,
     { expiresIn: "1h" }
   );
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true, // set to true in production
-    sameSite: "strict",
-    maxAge: 60 * 60 * 1000,
-  });
+  res.cookie("token", token, { ...COOKIE_OPTIONS, maxAge: 60 * 60 * 1000 });
   res.json({
     message: "Logged in",
     user: { id: user.id, email: user.email, name: user.name },
@@ -546,17 +556,26 @@ app.get("/api/me", requireAuth, (req: AuthenticatedRequest, res: Response) => {
 
 // Logout endpoint
 app.post("/api/logout", (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", COOKIE_OPTIONS);
   res.json({ message: "Logged out" });
 });
 
-// Error handling middleware
+// 404 handler (Express 5: no "*" path — a path-less middleware catches everything)
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: `Route ${req.originalUrl} not found`,
+    timestamp: new Date(),
+  });
+});
+
+// Error handling middleware (Express 5 also forwards rejected async handlers here)
 app.use(
   (
-    err: any,
-    req: express.Request,
+    err: unknown,
+    _req: express.Request,
     res: express.Response,
-    next: express.NextFunction
+    _next: express.NextFunction
   ) => {
     console.error("[Server] Unhandled error:", err);
     res.status(500).json({
@@ -566,15 +585,6 @@ app.use(
     });
   }
 );
-
-// 404 handler
-app.use("*", (req, res) => {
-  res.status(404).json({
-    success: false,
-    error: `Route ${req.originalUrl} not found`,
-    timestamp: new Date(),
-  });
-});
 
 // Start server
 app.listen(PORT, async () => {

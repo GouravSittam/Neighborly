@@ -1,42 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0c10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfaf6" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Neighborly - Find Your Perfect Neighborhood Match</title>
-    <meta
-      name="description"
-      content="Data-driven neighborhood matching algorithm that helps you find neighborhoods that align with your lifestyle preferences and goals."
-    />
-    <meta name="author" content="Neighborly Research Project" />
+    <title>Neighborly — Find the neighborhood that fits your life</title>
+    <meta name="description" content="Data-driven neighborhood matching. Tell us your budget, commute and lifestyle — get a ranked shortlist with the reasons behind every score." />
 
-    <meta
-      property="og:title"
-      content="Neighborly - Find Your Perfect Neighborhood Match"
-    />
-    <meta
-      property="og:description"
-      content="Data-driven neighborhood matching algorithm that helps you find neighborhoods that align with your lifestyle preferences and goals."
-    />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://images.unsplash.com/photo-1449824913935-59a10b8d2000"
-    />
-
+    <meta property="og:title" content="Neighborly — Find the neighborhood that fits your life" />
+    <meta property="og:description" content="Data-driven neighborhood matching with explainable scores." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1200&q=75" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Neighborly - Neighborhood Matching" />
-    <meta
-      name="twitter:description"
-      content="Find neighborhoods that fit your lifestyle through data-driven analysis"
-    />
-    <meta
-      name="twitter:image"
-      content="https://images.unsplash.com/photo-1449824913935-59a10b8d2000"
-    />
-  </head>
 
+    <!-- Apply the saved theme before first paint to avoid a flash. -->
+    <script>
+      try {
+        var t = localStorage.getItem("neighborly-theme");
+        if (t === "light" || (!t && matchMedia("(prefers-color-scheme: light)").matches))
+          document.documentElement.classList.remove("dark");
+      } catch (e) {}
+    </script>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

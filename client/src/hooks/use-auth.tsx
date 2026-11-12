@@ -1,102 +1,78 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import { createContext, use, useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { api } from "@/lib/api";
 
-interface User {
+export interface User {
   id: number;
   email: string;
   name?: string;
 }
 
-interface AuthContextType {
+interface AuthContextValue {
   user: User | null;
   loading: boolean;
-  error: string | null;
+  /** Throws on failure so callers can show the error. */
   login: (email: string, password: string) => Promise<void>;
+  /** Creates the account, then signs in. Throws on failure. */
+  signup: (name: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
-  refresh: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextValue | null>(null);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  const fetchMe = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/me", { credentials: "include" });
-      if (!res.ok) throw new Error("Not authenticated");
-      const data = await res.json();
-      setUser(data.user);
-    } catch (err) {
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Restore the session (if any) from the HTTP-only cookie on mount.
   useEffect(() => {
-    fetchMe();
+    let cancelled = false;
+    api<{ user: User }>("/api/me")
+      .then((data) => !cancelled && setUser(data.user))
+      .catch(() => !cancelled && setUser(null))
+      .finally(() => !cancelled && setLoading(false));
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const login = async (email: string, password: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/login", {
+  const login = useCallback(
+    async (email: string, password: string) => {
+      const data = await api<{ user: User }>("/api/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Login failed");
-      await fetchMe();
-    } catch (err: any) {
-      setError(err.message || "Login failed");
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const logout = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      await fetch("/api/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-      setUser(null);
-    } catch (err: any) {
-      setError(err.message || "Logout failed");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const refresh = fetchMe;
-
-  return (
-    <AuthContext.Provider
-      value={{ user, loading, error, login, logout, refresh }}
-    >
-      {children}
-    </AuthContext.Provider>
+      setUser(data.user);
+    },
+    [],
   );
-};
 
-export const useAuth = () => {
-  const ctx = useContext(AuthContext);
+  const signup = useCallback(
+    async (name: string, email: string, password: string) => {
+      await api("/api/signup", {
+        method: "POST",
+        body: JSON.stringify({ name, email, password }),
+      });
+      await login(email, password);
+    },
+    [login],
+  );
+
+  const logout = useCallback(async () => {
+    await api("/api/logout", { method: "POST" }).catch(() => {});
+    setUser(null);
+  }, []);
+
+  const value = useMemo(
+    () => ({ user, loading, login, signup, logout }),
+    [user, loading, login, signup, logout],
+  );
+
+  return <AuthContext value={value}>{children}</AuthContext>;
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function useAuth() {
+  const ctx = use(AuthContext);
   if (!ctx) throw new Error("useAuth must be used within an AuthProvider");
   return ctx;
-};
+}
